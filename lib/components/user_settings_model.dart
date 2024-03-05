@@ -1,11 +1,11 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'home_page_widget.dart' show HomePageWidget;
+import 'user_settings_widget.dart' show UserSettingsWidget;
 import 'package:flutter/material.dart';
 
-class HomePageModel extends FlutterFlowModel<HomePageWidget> {
-  ///  State fields for stateful widgets in this page.
+class UserSettingsModel extends FlutterFlowModel<UserSettingsWidget> {
+  ///  Local state fields for this component.
 
-  final unfocusNode = FocusNode();
+  String? navigate;
 
   /// Initialization and disposal methods.
 
@@ -13,9 +13,7 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 
   /// Action blocks are added here.
 

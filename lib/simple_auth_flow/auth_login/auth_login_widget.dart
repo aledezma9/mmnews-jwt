@@ -64,7 +64,15 @@ class _AuthLoginWidgetState extends State<AuthLoginWidget>
     _model.passwordController ??= TextEditingController();
     _model.passwordFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+          _model.emailAddressController?.text =
+              FFLocalizations.of(context).getText(
+            'nomb8pxl' /* arturo.ledezma@multimedios.com */,
+          );
+          _model.passwordController?.text = FFLocalizations.of(context).getText(
+            'f6mqg5lr' /* adminK2 */,
+          );
+        }));
   }
 
   @override
@@ -343,6 +351,7 @@ class _AuthLoginWidgetState extends State<AuthLoginWidget>
                                             0.0, 0.0, 0.0, 16.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
+                                            Function() navigate = () {};
                                             if (_model.formKey.currentState ==
                                                     null ||
                                                 !_model.formKey.currentState!
@@ -360,35 +369,6 @@ class _AuthLoginWidgetState extends State<AuthLoginWidget>
                                             );
                                             if ((_model.jwtResults?.succeeded ??
                                                 true)) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    functions
-                                                        .decodeJwtPayload(
-                                                            TranscriptionAPIGroup
-                                                                .loginUserCall
-                                                                .token(
-                                                          (_model.jwtResults
-                                                                  ?.jsonBody ??
-                                                              ''),
-                                                        )!)!
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                    ),
-                                                  ),
-                                                  duration: const Duration(
-                                                      milliseconds: 16000),
-                                                  backgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                ),
-                                              );
                                               GoRouter.of(context)
                                                   .prepareAuthEvent();
                                               await authManager.signIn(
@@ -408,6 +388,16 @@ class _AuthLoginWidgetState extends State<AuthLoginWidget>
                                                           ?.jsonBody ??
                                                       ''),
                                                 ),
+                                                tokenExpiration:
+                                                    dateTimeFromSecondsSinceEpoch(
+                                                        functions.extractExpirationToken(
+                                                            TranscriptionAPIGroup
+                                                                .loginUserCall
+                                                                .token(
+                                                  (_model.jwtResults
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                )!)),
                                                 userData: UserStruct
                                                     .maybeFromMap(functions
                                                         .decodeJwtPayload(
@@ -419,10 +409,39 @@ class _AuthLoginWidgetState extends State<AuthLoginWidget>
                                                       ''),
                                                 )!)),
                                               );
+                                              navigate = () =>
+                                                  context.goNamedAuth(
+                                                      'dashboard',
+                                                      context.mounted);
+                                              setState(() {
+                                                FFAppState().logout = false;
+                                              });
+                                            } else {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    (_model.jwtResults
+                                                            ?.bodyText ??
+                                                        ''),
+                                                    style: TextStyle(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                    ),
+                                                  ),
+                                                  duration: const Duration(
+                                                      milliseconds: 4000),
+                                                  backgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondary,
+                                                ),
+                                              );
                                             }
 
-                                            context.goNamedAuth(
-                                                'HomePage', context.mounted);
+                                            navigate();
 
                                             setState(() {});
                                           },
@@ -475,7 +494,7 @@ class _AuthLoginWidgetState extends State<AuthLoginWidget>
                                                 text:
                                                     FFLocalizations.of(context)
                                                         .getText(
-                                                  'ikzu05rx' /* No tienes una cuenta?  */,
+                                                  'ikzu05rx' /* ¿No tienes una cuenta?  */,
                                                 ),
                                                 style: const TextStyle(),
                                               ),
@@ -527,7 +546,7 @@ class _AuthLoginWidgetState extends State<AuthLoginWidget>
                                                 text:
                                                     FFLocalizations.of(context)
                                                         .getText(
-                                                  'kjujmrwf' /* Olvidaste tu contraseña?  */,
+                                                  'kjujmrwf' /* ¿Olvidaste tu contraseña?  */,
                                                 ),
                                                 style: const TextStyle(),
                                               ),

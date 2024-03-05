@@ -4,6 +4,10 @@ import 'reset_password_widget.dart' show ResetPasswordWidget;
 import 'package:flutter/material.dart';
 
 class ResetPasswordModel extends FlutterFlowModel<ResetPasswordWidget> {
+  ///  Local state fields for this page.
+
+  bool passwortNotMatch = false;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

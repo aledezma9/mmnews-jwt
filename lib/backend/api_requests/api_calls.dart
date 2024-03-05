@@ -16,14 +16,10 @@ class TranscriptionAPIGroup {
   static LoginUserCall loginUserCall = LoginUserCall();
   static GetAllUsersCall getAllUsersCall = GetAllUsersCall();
   static GetUserDataCall getUserDataCall = GetUserDataCall();
-  static ActivateUserV1UsersUserEmailPutCall
-      activateUserV1UsersUserEmailPutCall =
-      ActivateUserV1UsersUserEmailPutCall();
+  static ActiveUserCall activeUserCall = ActiveUserCall();
   static GetUserByIdV1UsersIdIdGetCall getUserByIdV1UsersIdIdGetCall =
       GetUserByIdV1UsersIdIdGetCall();
-  static DeactivateUserV1UsersDeactivateUserEmailPutCall
-      deactivateUserV1UsersDeactivateUserEmailPutCall =
-      DeactivateUserV1UsersDeactivateUserEmailPutCall();
+  static DeactivateUserCall deactivateUserCall = DeactivateUserCall();
   static GetTranscriptionStatusV1TranscriptionStatusGetCall
       getTranscriptionStatusV1TranscriptionStatusGetCall =
       GetTranscriptionStatusV1TranscriptionStatusGetCall();
@@ -45,18 +41,16 @@ class TranscriptionAPIGroup {
   static UpdateTranscriptionStatusIsReadedV1TranscriptionStatusIdUserIdPostCall
       updateTranscriptionStatusIsReadedV1TranscriptionStatusIdUserIdPostCall =
       UpdateTranscriptionStatusIsReadedV1TranscriptionStatusIdUserIdPostCall();
-  static GetAllTranscriptionsV1TranscriptionsGetCall
-      getAllTranscriptionsV1TranscriptionsGetCall =
-      GetAllTranscriptionsV1TranscriptionsGetCall();
+  static GetAllTranscriptionsCall getAllTranscriptionsCall =
+      GetAllTranscriptionsCall();
   static UploadMediaTranscriptionV1TranscriptionsPostCall
       uploadMediaTranscriptionV1TranscriptionsPostCall =
       UploadMediaTranscriptionV1TranscriptionsPostCall();
   static GetAllTranscriptionsV1TranscriptionsTableGetCall
       getAllTranscriptionsV1TranscriptionsTableGetCall =
       GetAllTranscriptionsV1TranscriptionsTableGetCall();
-  static GetTranscriptionsByIdV1TranscriptionsIdGetCall
-      getTranscriptionsByIdV1TranscriptionsIdGetCall =
-      GetTranscriptionsByIdV1TranscriptionsIdGetCall();
+  static GettranscriptionsbyidCall gettranscriptionsbyidCall =
+      GettranscriptionsbyidCall();
   static GetTranscriptionsByTitleV1TranscriptionsTitleTitleGetCall
       getTranscriptionsByTitleV1TranscriptionsTitleTitleGetCall =
       GetTranscriptionsByTitleV1TranscriptionsTitleTitleGetCall();
@@ -170,6 +164,79 @@ class GetAllUsersCall {
       alwaysAllowBody: false,
     );
   }
+
+  List<int>? allUserId(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].user_id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? allUserName(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].user_name''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? allUserEmail(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].user_email''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<bool>? allUserActive(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].user_active''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<bool>(x))
+          .withoutNulls
+          .toList();
+  List<String>? allUserCreated(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].created_at''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? allUserUpdated(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].updated_at''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? allUserAvatar(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].avatar_url''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<int>? allUserTenantId(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].tenant_id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
 }
 
 class GetUserDataCall {
@@ -192,19 +259,55 @@ class GetUserDataCall {
       alwaysAllowBody: false,
     );
   }
+
+  int? userid(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.user_id''',
+      ));
+  String? username(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.user_name''',
+      ));
+  String? useremail(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.user_email''',
+      ));
+  bool? useractive(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.user_active''',
+      ));
+  String? createdat(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.created_at''',
+      ));
+  String? updatedat(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.updated_at''',
+      ));
+  String? avatarurl(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.avatar_url''',
+      ));
+  int? tenantid(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.tenant_id''',
+      ));
 }
 
-class ActivateUserV1UsersUserEmailPutCall {
+class ActiveUserCall {
   Future<ApiCallResponse> call({
     String? userEmail = '',
+    String? token = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'activate_user_v1_users__user_email__put',
+      callName: 'Active User',
       apiUrl: '${TranscriptionAPIGroup.baseUrl}/v1/users/$userEmail',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
       params: {},
-      bodyType: BodyType.JSON,
+      bodyType: BodyType.NONE,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -233,18 +336,21 @@ class GetUserByIdV1UsersIdIdGetCall {
   }
 }
 
-class DeactivateUserV1UsersDeactivateUserEmailPutCall {
+class DeactivateUserCall {
   Future<ApiCallResponse> call({
     String? userEmail = '',
+    String? token = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'deactivate_user_v1_users_deactivate__user_email__put',
+      callName: 'Deactivate User',
       apiUrl:
           '${TranscriptionAPIGroup.baseUrl}/v1/users/deactivate/$userEmail',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
       params: {},
-      bodyType: BodyType.JSON,
+      bodyType: BodyType.NONE,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -432,30 +538,161 @@ class UpdateTranscriptionStatusIsReadedV1TranscriptionStatusIdUserIdPostCall {
   }
 }
 
-class GetAllTranscriptionsV1TranscriptionsGetCall {
+class GetAllTranscriptionsCall {
   Future<ApiCallResponse> call({
     int? page,
     int? size,
-    String? xApiKey = '',
+    String? token = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'get_all_transcriptions_v1_transcriptions_get',
+      callName: 'Get All Transcriptions',
       apiUrl: '${TranscriptionAPIGroup.baseUrl}/v1/transcriptions',
       callType: ApiCallType.GET,
       headers: {
-        'x-api-key': '$xApiKey',
+        'Authorization': 'Bearer $token',
       },
       params: {
         'page': page,
         'size': size,
+        'token': token,
       },
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
       alwaysAllowBody: false,
     );
   }
+
+  List? items(dynamic response) => getJsonField(
+        response,
+        r'''$.items''',
+        true,
+      ) as List?;
+  List<String>? itemstitle(dynamic response) => (getJsonField(
+        response,
+        r'''$.items[:].title''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? itemscreatedat(dynamic response) => (getJsonField(
+        response,
+        r'''$.items[:].created_at''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<int>? itemstranscriptionid(dynamic response) => (getJsonField(
+        response,
+        r'''$.items[:].transcription_id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<int>? itemsuserid(dynamic response) => (getJsonField(
+        response,
+        r'''$.items[:].user_id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? itemsusername(dynamic response) => (getJsonField(
+        response,
+        r'''$.items[:].user_name''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<double>? itemsduration(dynamic response) => (getJsonField(
+        response,
+        r'''$.items[:].duration''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<double>(x))
+          .withoutNulls
+          .toList();
+  List<String>? itemsupdatedat(dynamic response) => (getJsonField(
+        response,
+        r'''$.items[:].updated_at''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? itemstrsnscriptiondocpath(dynamic response) => (getJsonField(
+        response,
+        r'''$.items[:].transcription_doc_path''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? itemsmediathumbnailpath(dynamic response) => (getJsonField(
+        response,
+        r'''$.items[:].media_thumbnail_path''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? itemstatus(dynamic response) => (getJsonField(
+        response,
+        r'''$.items[:].status''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<int>? itemsrating(dynamic response) => (getJsonField(
+        response,
+        r'''$.items[:].rating''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? itemskeywords(dynamic response) => (getJsonField(
+        response,
+        r'''$.items[:].keywords''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  int? page(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.page''',
+      ));
+  int? total(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.total''',
+      ));
+  int? size(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.size''',
+      ));
+  int? pages(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.pages''',
+      ));
 }
 
 class UploadMediaTranscriptionV1TranscriptionsPostCall {
@@ -501,17 +738,17 @@ class GetAllTranscriptionsV1TranscriptionsTableGetCall {
   }
 }
 
-class GetTranscriptionsByIdV1TranscriptionsIdGetCall {
+class GettranscriptionsbyidCall {
   Future<ApiCallResponse> call({
     int? id,
-    String? xApiKey = '',
+    String? token = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'get_transcriptions_by_id_v1_transcriptions__id__get',
+      callName: 'gettranscriptionsbyid',
       apiUrl: '${TranscriptionAPIGroup.baseUrl}/v1/transcriptions/$id',
       callType: ApiCallType.GET,
       headers: {
-        'x-api-key': '$xApiKey',
+        'Authorization': 'Bearer $token',
       },
       params: {},
       returnBody: true,
@@ -521,6 +758,147 @@ class GetTranscriptionsByIdV1TranscriptionsIdGetCall {
       alwaysAllowBody: false,
     );
   }
+
+  int? transcriptionid(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.transcription_id''',
+      ));
+  int? userid(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.user_id''',
+      ));
+  String? username(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.user_name''',
+      ));
+  String? title(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.title''',
+      ));
+  int? rating(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.rating''',
+      ));
+  String? mediafilepath(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.media_file_path''',
+      ));
+  String? mediathumbnail(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.media_thumbnail_path''',
+      ));
+  List<String>? keywords(dynamic response) => (getJsonField(
+        response,
+        r'''$.keywords''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  String? source(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.source''',
+      ));
+  double? duration(dynamic response) => castToType<double>(getJsonField(
+        response,
+        r'''$.duration''',
+      ));
+  String? createdat(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.created_at''',
+      ));
+  String? updatedat(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.updated_at''',
+      ));
+  String? headlines(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.headlines''',
+      ));
+  String? sumarize(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.summarize''',
+      ));
+  String? sumarizeadvanced(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.summarize_advanced''',
+      ));
+  String? characterlist(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.character_list''',
+      ));
+  String? transcriptionsrtpath(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.transcription_srt_path''',
+      ));
+  List? transcriptionsrtjson(dynamic response) => getJsonField(
+        response,
+        r'''$.transcriptions_srt_json''',
+        true,
+      ) as List?;
+  List<String>? transcriptionsrtjsontext(dynamic response) => (getJsonField(
+        response,
+        r'''$.transcriptions_srt_json[:].text''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<int>? transcriptionsrtjsonindex(dynamic response) => (getJsonField(
+        response,
+        r'''$.transcriptions_srt_json[:].index''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? transcriptionsrtjsonendtime(dynamic response) => (getJsonField(
+        response,
+        r'''$.transcriptions_srt_json[:].end_time''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? transcriptionsrtjsonstarttime(dynamic response) =>
+      (getJsonField(
+        response,
+        r'''$.transcriptions_srt_json[:].start_time''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  String? transcriptiondocpath(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.transcription_doc_path''',
+      ));
+  String? transcriptionfilepath(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.transcription_file_path''',
+      ));
+  String? transcriptionsrtjsonpath(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.transcription_srt_json_path''',
+      ));
+  String? transriptionsrttxt(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.transcriptions_srt_txt''',
+      ));
+  String? transcriptiontxt(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.transcriptions_txt''',
+      ));
 }
 
 class GetTranscriptionsByTitleV1TranscriptionsTitleTitleGetCall {

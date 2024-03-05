@@ -1,5 +1,5 @@
 // Export pages
-export '/pages/home_page/home_page_widget.dart' show HomePageWidget;
+export '/pages/hometest/hometest_widget.dart' show HometestWidget;
 export '/pages/home_page_copy/home_page_copy_widget.dart'
     show HomePageCopyWidget;
 export '/simple_auth_flow/auth_forgotpassword/auth_forgotpassword_widget.dart'
@@ -10,3 +10,5 @@ export '/simple_auth_flow/authregister/authregister_widget.dart'
     show AuthregisterWidget;
 export '/simple_auth_flow/reset_password/reset_password_widget.dart'
     show ResetPasswordWidget;
+export '/pages/users/users_widget.dart' show UsersWidget;
+export '/pages/dashboard/dashboard_widget.dart' show DashboardWidget;

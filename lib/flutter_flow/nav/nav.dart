@@ -72,20 +72,23 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const HomePageWidget() : const AuthLoginWidget(),
+      errorBuilder: (context, state) => RootPageContext.wrap(
+        appStateNotifier.loggedIn ? const DashboardWidget() : const AuthLoginWidget(),
+        errorRoute: state.location,
+      ),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? const HomePageWidget() : const AuthLoginWidget(),
+          builder: (context, _) => RootPageContext.wrap(
+            appStateNotifier.loggedIn ? const DashboardWidget() : const AuthLoginWidget(),
+          ),
         ),
         FFRoute(
-          name: 'HomePage',
-          path: '/homePage',
+          name: 'hometest',
+          path: '/hometest',
           requireAuth: true,
-          builder: (context, params) => const HomePageWidget(),
+          builder: (context, params) => const HometestWidget(),
         ),
         FFRoute(
           name: 'HomePageCopy',
@@ -114,6 +117,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             token: params.getParam('token', ParamType.String),
             email: params.getParam('email', ParamType.String),
           ),
+        ),
+        FFRoute(
+          name: 'users',
+          path: '/users',
+          requireAuth: true,
+          builder: (context, params) => const UsersWidget(),
+        ),
+        FFRoute(
+          name: 'dashboard',
+          path: '/dashboard',
+          requireAuth: true,
+          builder: (context, params) => const DashboardWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

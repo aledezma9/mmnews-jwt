@@ -105,9 +105,13 @@ Locale createLocale(String language) => language.contains('_')
     : Locale(language);
 
 final kTranslationsMap = <Map<String, Map<String, String>>>[
-  // HomePage
+  // hometest
   {
     'cxui5zra': {
+      'es': 'Logout',
+      'en': 'Logout',
+    },
+    'dadrk2d8': {
       'es': 'Logout',
       'en': 'Logout',
     },
@@ -134,12 +138,14 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // auth-forgotpassword
   {
     'vajfcnli': {
-      'es': 'Contraseña olvidada',
+      'es': '¿Contraseña olvidada?',
       'en': 'Forgotten password',
     },
     'xod59m8a': {
-      'es': 'Plataforma de transcripciónes con Inteligencia Artificial.',
-      'en': 'Transcription platform with Artificial Intelligence.',
+      'es':
+          'Proporcióna tu correo electronico y recibiras un correo con las instrucciónes para recuperarlo.',
+      'en':
+          'Provide your email and you will receive an email with instructions to recover it.',
     },
     'd0rr2yfd': {
       'es': 'Correo...',
@@ -200,25 +206,33 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': 'Correo',
       'en': 'Mail',
     },
+    'nomb8pxl': {
+      'es': 'arturo.ledezma@multimedios.com',
+      'en': '',
+    },
     '934jg1bu': {
       'es': 'Contraseña',
       'en': 'Password',
+    },
+    'f6mqg5lr': {
+      'es': 'adminK2',
+      'en': '',
     },
     'io3epr24': {
       'es': 'Ingresar',
       'en': 'Get into',
     },
     'ikzu05rx': {
-      'es': 'No tienes una cuenta? ',
-      'en': 'You do not have an account?',
+      'es': '¿No tienes una cuenta? ',
+      'en': '¿You do not have an account?',
     },
     'ffks7vm9': {
       'es': '   Registrate aqui',
       'en': 'Sign up here',
     },
     'kjujmrwf': {
-      'es': 'Olvidaste tu contraseña? ',
-      'en': 'Did you forget your password?',
+      'es': '¿Olvidaste tu contraseña? ',
+      'en': '¿Did you forget your password?',
     },
     'o8eqvn76': {
       'es': '  Recuperar contraseña',
@@ -336,6 +350,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en':
           'We will send you an email with a link to reset your password. Enter the email associated with your account below.',
     },
+    'j8wkg47b': {
+      'es': 'Las contraseñas no coinciden.',
+      'en': 'Passwords do not match.',
+    },
     'w7cu96rj': {
       'es': 'Contraseña...',
       'en': 'Password...',
@@ -348,41 +366,95 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': 'Enviar',
       'en': 'Send',
     },
-    'kgbhkqf7': {
-      'es': 'El campo es requerido',
-      'en': 'The field is required',
+    'a476v1z4': {
+      'es': 'Field is required',
+      'en': '',
     },
-    'j0ni4ecd': {
-      'es': 'Selecciona una opcion de la lista',
-      'en': 'Select an option from the list',
+    '7kuo5u59': {
+      'es': 'Please choose an option from the dropdown',
+      'en': '',
     },
-    '9g4bjxb2': {
-      'es': 'El campo es requerido',
-      'en': 'The field is required',
+    'bkylcv2k': {
+      'es': 'Field is required',
+      'en': '',
     },
-    'prjnjv8p': {
-      'es': 'Selecciona una opcion de la lista',
-      'en': 'Select an option from the list',
-    },
-    '0ycdgim1': {
-      'es': 'El campo es requerido',
-      'en': 'The field is required',
-    },
-    'b7qjau71': {
-      'es': 'El password debe ser de mas de 6 caracteres',
-      'en': 'The password must be more than 6 characters',
-    },
-    'j26irm9d': {
-      'es': 'el password debe ser menor a 8 caracteres',
-      'en': 'The password must be less than 8 characters',
-    },
-    'c9q5fj61': {
-      'es': 'Selecciona una opcion de la lista',
-      'en': 'Select an option from the list',
+    'ol1jrlna': {
+      'es': 'Please choose an option from the dropdown',
+      'en': '',
     },
     'jrz07r5c': {
       'es': 'Home',
       'en': 'home',
+    },
+  },
+  // users
+  {
+    'u3rlh7y6': {
+      'es': 'Usuarios de la plataforma',
+      'en': 'Platform users',
+    },
+    'fh9jx6vy': {
+      'es': 'Administración de usuarios, activación, desactivación',
+      'en': 'User management, activation, deactivation',
+    },
+    'atzfupba': {
+      'es': 'ID',
+      'en': '',
+    },
+    '6wh125ym': {
+      'es': 'Información del usuario',
+      'en': '',
+    },
+    '8s8w9wu5': {
+      'es': 'Miembro desde:',
+      'en': '',
+    },
+    '5jchnrjc': {
+      'es': 'Estatus',
+      'en': '',
+    },
+    'p31h2wey': {
+      'es': 'v8',
+      'en': 'v8',
+    },
+    'j18ud3yq': {
+      'es': 'Home',
+      'en': '',
+    },
+  },
+  // dashboard
+  {
+    'wzjz1p79': {
+      'es': 'Panel',
+      'en': 'Panel',
+    },
+    'krcwz6k1': {
+      'es': 'Panel de Transcripciónes.',
+      'en': 'Transcripts Panel.',
+    },
+    'uac74jhj': {
+      'es': 'ID',
+      'en': '',
+    },
+    '061ti0bw': {
+      'es': 'Información del usuario',
+      'en': '',
+    },
+    's3q70b3r': {
+      'es': 'Miembro desde:',
+      'en': '',
+    },
+    'oy1fd1bv': {
+      'es': 'Estatus',
+      'en': '',
+    },
+    'uwfqnhgg': {
+      'es': 'v12',
+      'en': 'v12',
+    },
+    'qvd73nco': {
+      'es': 'Home',
+      'en': '',
     },
   },
   // EmailRegisterMessage
@@ -390,6 +462,181 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     '1mh3b2hg': {
       'es': '4m ago',
       'en': '4m ago',
+    },
+  },
+  // sideNav_Mail
+  {
+    'q6pp7ws2': {
+      'es': 'Panel',
+      'en': 'Panel',
+    },
+    'nd6d3iik': {
+      'es': 'Usuarios',
+      'en': 'Users',
+    },
+  },
+  // UploadsButton
+  {
+    'ek5uilky': {
+      'es': 'Subir',
+      'en': 'Upload',
+    },
+  },
+  // PlayerBusquedas
+  {
+    'ywbytf7y': {
+      'es': 'bUSQUWDAS',
+      'en': '',
+    },
+    'xu8dmsc4': {
+      'es': 'Transcripciòn',
+      'en': '',
+    },
+    '83g1d8hg': {
+      'es': 'Resumen',
+      'en': '',
+    },
+    'iepw77ct': {
+      'es': 'Etiquetas',
+      'en': '',
+    },
+    'xiec0ec0': {
+      'es': 'Informaciòn',
+      'en': '',
+    },
+    'n59qhwj5': {
+      'es': 'Personajes',
+      'en': '',
+    },
+    'fsra0mdw': {
+      'es': 'Option 1',
+      'en': '',
+    },
+    'ztxfea2i': {
+      'es': '\n',
+      'en': '',
+    },
+    'wba3qmor': {
+      'es': 'informaciòn',
+      'en': '',
+    },
+    '19bocoi9': {
+      'es': 'Datos acerca de la media.',
+      'en': '',
+    },
+    'zp4idrkb': {
+      'es': 'Fecha de Creaciòn',
+      'en': '',
+    },
+    '3cbw2rxn': {
+      'es': '4m ago',
+      'en': '',
+    },
+    'hmp7x2sx': {
+      'es': 'Ultima Actualizaciòn',
+      'en': '',
+    },
+    'ntoiyslj': {
+      'es': '4m ago',
+      'en': '',
+    },
+    'et4q50jf': {
+      'es': 'Fuente',
+      'en': '',
+    },
+    'cwzb43qc': {
+      'es': '4m ago',
+      'en': '',
+    },
+    'obafigrs': {
+      'es': 'Rudy Fernandez',
+      'en': '',
+    },
+    'zd0mrtnx': {
+      'es': 'Creador',
+      'en': '',
+    },
+    'vmoyz0ap': {
+      'es': '',
+      'en': '',
+    },
+    'g69n4hj6': {
+      'es': 'Resumen',
+      'en': '',
+    },
+    '6szcgebe': {
+      'es': '',
+      'en': '',
+    },
+    '1h76s3iw': {
+      'es': 'Resumen extendido',
+      'en': '',
+    },
+    'ugacbtj8': {
+      'es': '',
+      'en': '',
+    },
+    'lgs85b8z': {
+      'es': 'Titulares',
+      'en': '',
+    },
+    'srkg5uch': {
+      'es': 'Duraciòn',
+      'en': '',
+    },
+    '9msq6s5z': {
+      'es': 'Duraciòn',
+      'en': '',
+    },
+    'umpelbif': {
+      'es': '00:01',
+      'en': '',
+    },
+    'olwikn8l': {
+      'es': 'Hello World',
+      'en': '',
+    },
+  },
+  // AlertEndSesion
+  {
+    'laeoua8l': {
+      'es': 'Tu sesion caducara pronto',
+      'en': 'Your session will expire soon',
+    },
+    '8zd42szu': {
+      'es': 'Quieres continuar?',
+      'en': 'Do you want to continue?',
+    },
+    'cq6e5efp': {
+      'es': 'Salir de la aplicación',
+      'en': 'Exit application',
+    },
+    'c5t9oyle': {
+      'es': 'Continuar',
+      'en': 'Continue',
+    },
+  },
+  // UserSettings
+  {
+    'vztqwjgg': {
+      'es': 'Ajustes',
+      'en': 'Settings',
+    },
+    'w4o4usg7': {
+      'es': 'Cambiar password.',
+      'en': 'Change password.',
+    },
+    'erowuj1t': {
+      'es': 'Cambia tu password.',
+      'en': 'Change your password.',
+    },
+    '4922912g': {
+      'es': 'Salir',
+      'en': 'Go out',
+    },
+    '7hblt8lt': {
+      'es': 'Cerrar mi sesion.',
+      'en': 'Close my session.',
     },
   },
   // Miscellaneous

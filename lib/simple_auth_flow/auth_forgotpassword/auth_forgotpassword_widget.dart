@@ -119,27 +119,38 @@ class _AuthForgotpasswordWidgetState extends State<AuthForgotpasswordWidget> {
                                             const AlignmentDirectional(0.0, 0.0),
                                         child: Text(
                                           FFLocalizations.of(context).getText(
-                                            'vajfcnli' /* Contraseña olvidada */,
+                                            'vajfcnli' /* ¿Contraseña olvidada? */,
                                           ),
                                           style: FlutterFlowTheme.of(context)
                                               .displaySmall,
                                         ),
                                       ),
-                                      Align(
-                                        alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  12.0, 12.0, 12.0, 24.0),
-                                          child: Text(
-                                            FFLocalizations.of(context).getText(
-                                              'xod59m8a' /* Plataforma de transcripciónes ... */,
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            45.0, 10.0, 45.0, 10.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        12.0, 12.0, 12.0, 24.0),
+                                                child: Text(
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                    'xod59m8a' /* Proporcióna tu correo electron... */,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .labelMedium,
+                                                ),
+                                              ),
                                             ),
-                                            textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .labelMedium,
-                                          ),
+                                          ],
                                         ),
                                       ),
                                       Align(
@@ -276,18 +287,30 @@ class _AuthForgotpasswordWidgetState extends State<AuthForgotpasswordWidget> {
                                                               : FocusScope.of(
                                                                       context)
                                                                   .unfocus(),
-                                                          child:
-                                                              EmailRegisterMessageWidget(
-                                                            username: _model
-                                                                .textController
-                                                                .text,
-                                                            email: _model
-                                                                .textController
-                                                                .text,
-                                                            mesage:
-                                                                'Se enviara un correo electronico con el link para restablecer tu contraseña a este correo: ',
-                                                            titulo:
-                                                                'Restablecer Contraseña',
+                                                          child: SizedBox(
+                                                            height: MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .height *
+                                                                0.3,
+                                                            width: MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width *
+                                                                0.3,
+                                                            child:
+                                                                EmailRegisterMessageWidget(
+                                                              username: _model
+                                                                  .textController
+                                                                  .text,
+                                                              email: _model
+                                                                  .textController
+                                                                  .text,
+                                                              mesage:
+                                                                  'Se enviara un correo electronico con el link para restablecer tu contraseña a este correo: ',
+                                                              titulo:
+                                                                  'Restablecer Contraseña',
+                                                            ),
                                                           ),
                                                         ),
                                                       );

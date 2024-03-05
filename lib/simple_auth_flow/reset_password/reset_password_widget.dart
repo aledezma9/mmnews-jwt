@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'reset_password_model.dart';
@@ -133,23 +134,63 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                               .displaySmall,
                                         ),
                                       ),
-                                      Align(
-                                        alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  12.0, 12.0, 12.0, 24.0),
-                                          child: Text(
-                                            FFLocalizations.of(context).getText(
-                                              'ivwzhq6g' /* Le enviaremos un correo electr... */,
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            65.0, 0.0, 65.0, 0.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        12.0, 12.0, 12.0, 24.0),
+                                                child: Text(
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                    'ivwzhq6g' /* Le enviaremos un correo electr... */,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .labelMedium,
+                                                ),
+                                              ),
                                             ),
-                                            textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .labelMedium,
-                                          ),
+                                          ],
                                         ),
                                       ),
+                                      if (!valueOrDefault<bool>(
+                                        _model.passwortNotMatch,
+                                        true,
+                                      ))
+                                        Align(
+                                          alignment:
+                                              const AlignmentDirectional(0.0, 0.0),
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    12.0, 5.0, 12.0, 5.0),
+                                            child: Text(
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'j8wkg47b' /* Las contraseñas no coinciden. */,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelMedium
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                  ),
+                                            ),
+                                          ),
+                                        ),
                                       Align(
                                         alignment:
                                             const AlignmentDirectional(0.0, 0.0),
@@ -164,7 +205,36 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                   _model.textController1,
                                               focusNode:
                                                   _model.textFieldFocusNode1,
-                                              autofocus: true,
+                                              onChanged: (_) =>
+                                                  EasyDebounce.debounce(
+                                                '_model.textController1',
+                                                const Duration(milliseconds: 100),
+                                                () => setState(() {}),
+                                              ),
+                                              onFieldSubmitted: (_) async {
+                                                if (_model.textController2
+                                                            .text !=
+                                                        '') {
+                                                  if (_model.textController1
+                                                          .text ==
+                                                      _model.textController2
+                                                          .text) {
+                                                    setState(() {
+                                                      _model.passwortNotMatch =
+                                                          true;
+                                                    });
+                                                    return;
+                                                  } else {
+                                                    setState(() {
+                                                      _model.passwortNotMatch =
+                                                          false;
+                                                    });
+                                                    return;
+                                                  }
+                                                }
+                                              },
+                                              textCapitalization:
+                                                  TextCapitalization.none,
                                               obscureText:
                                                   !_model.passwordVisibility1,
                                               decoration: InputDecoration(
@@ -269,7 +339,29 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                   _model.textController2,
                                               focusNode:
                                                   _model.textFieldFocusNode2,
-                                              autofocus: true,
+                                              onChanged: (_) =>
+                                                  EasyDebounce.debounce(
+                                                '_model.textController2',
+                                                const Duration(milliseconds: 100),
+                                                () async {
+                                                  if (_model.textController1
+                                                          .text ==
+                                                      _model.textController2
+                                                          .text) {
+                                                    setState(() {
+                                                      _model.passwortNotMatch =
+                                                          true;
+                                                    });
+                                                    return;
+                                                  } else {
+                                                    setState(() {
+                                                      _model.passwortNotMatch =
+                                                          false;
+                                                    });
+                                                    return;
+                                                  }
+                                                },
+                                              ),
                                               obscureText:
                                                   !_model.passwordVisibility2,
                                               decoration: InputDecoration(
@@ -368,25 +460,43 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                               const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 16.0),
                                           child: FFButtonWidget(
-                                            onPressed: (_model
-                                                        .textController1.text !=
-                                                    _model.textController2.text)
+                                            onPressed: !_model.passwortNotMatch
                                                 ? null
                                                 : () async {
-                                                    _model.passwordChange =
-                                                        await TranscriptionAPIGroup
-                                                            .passwordChangeCall
-                                                            .call(
-                                                      token: widget.token,
-                                                      userEmail: widget.email,
-                                                      password: _model
-                                                          .textController2.text,
-                                                    );
-                                                    if ((_model.passwordChange
-                                                            ?.succeeded ??
-                                                        true)) {
-                                                      context.pushNamed(
-                                                          'auth-login');
+                                                    if (_model.formKey
+                                                                .currentState ==
+                                                            null ||
+                                                        !_model.formKey
+                                                            .currentState!
+                                                            .validate()) {
+                                                      return;
+                                                    }
+                                                    if (_model.textController1
+                                                            .text ==
+                                                        _model.textController2
+                                                            .text) {
+                                                      _model.passwordChange =
+                                                          await TranscriptionAPIGroup
+                                                              .passwordChangeCall
+                                                              .call(
+                                                        token: widget.token,
+                                                        userEmail: widget.email,
+                                                        password: _model
+                                                            .textController2
+                                                            .text,
+                                                      );
+                                                      if ((_model.passwordChange
+                                                              ?.succeeded ??
+                                                          true)) {
+                                                        context.pushNamed(
+                                                            'auth-login');
+                                                      }
+                                                    } else {
+                                                      setState(() {
+                                                        FFAppState()
+                                                                .passwordNotMatch =
+                                                            false;
+                                                      });
                                                     }
 
                                                     setState(() {});
@@ -420,6 +530,9 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(12.0),
+                                              disabledColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .accent4,
                                             ),
                                           ),
                                         ),
