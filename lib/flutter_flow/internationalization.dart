@@ -413,18 +413,18 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': 'Estatus',
       'en': '',
     },
-    'p31h2wey': {
-      'es': 'v8',
-      'en': 'v8',
-    },
     'j18ud3yq': {
       'es': 'Home',
       'en': '',
     },
   },
-  // dashboard
+  // dashboardOld
   {
     'wzjz1p79': {
+      'es': 'Resultados..',
+      'en': 'Results..',
+    },
+    'xhpeb4v7': {
       'es': 'Panel',
       'en': 'Panel',
     },
@@ -433,35 +433,308 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Transcripts Panel.',
     },
     'uac74jhj': {
-      'es': 'ID',
-      'en': '',
+      'es': 'Imagen',
+      'en': 'Image',
     },
     '061ti0bw': {
-      'es': 'Información del usuario',
-      'en': '',
+      'es': 'Título',
+      'en': 'Title',
     },
     's3q70b3r': {
-      'es': 'Miembro desde:',
-      'en': '',
+      'es': 'Duración',
+      'en': 'Duration',
     },
     'oy1fd1bv': {
-      'es': 'Estatus',
+      'es': 'Creación',
+      'en': 'Creation',
+    },
+    'w5t9sf8j': {
+      'es': 'Autor',
+      'en': 'Author',
+    },
+    'in97tsyy': {
+      'es': 'Valoración',
+      'en': 'Rating',
+    },
+    'qmdvzvzl': {
+      'es': 'Opciónes',
+      'en': 'Options',
+    },
+    '4mkdi0gb': {
+      'es': 'Imagen',
+      'en': 'Image',
+    },
+    'm3bodoen': {
+      'es': 'Título',
+      'en': 'Title',
+    },
+    'a6p8uo5x': {
+      'es': 'Duración',
+      'en': 'Duration',
+    },
+    'rka1ebux': {
+      'es': 'Creación',
+      'en': 'Creation',
+    },
+    'wzw7k0v5': {
+      'es': 'Opciónes',
+      'en': 'Options',
+    },
+    'yj8pkhne': {
+      'es': 'Filas por pagina:',
       'en': '',
     },
+    'q9qi7xpb': {
+      'es': '40',
+      'en': '',
+    },
+    'u9hy7h2j': {
+      'es': '50',
+      'en': '',
+    },
+    'r8euyl8q': {
+      'es': '100',
+      'en': '',
+    },
+    'xm431xce': {
+      'es': 'Buscar...',
+      'en': '',
+    },
+    'edm2kgol': {
+      'es': 'Busquedas...',
+      'en': 'Searches...',
+    },
     'uwfqnhgg': {
-      'es': 'v12',
-      'en': 'v12',
+      'es': 'v21',
+      'en': 'v21',
     },
     'qvd73nco': {
       'es': 'Home',
       'en': '',
     },
   },
-  // EmailRegisterMessage
+  // dashboard
   {
-    '1mh3b2hg': {
-      'es': '4m ago',
-      'en': '4m ago',
+    'kxgyog9v': {
+      'es': 'Resultados..',
+      'en': 'Results..',
+    },
+    'dhyztyd0': {
+      'es': 'Panel',
+      'en': 'Panel',
+    },
+    'tgyc8m53': {
+      'es': 'Panel de Transcripciónes.',
+      'en': 'Transcripts Panel.',
+    },
+    's987gbxb': {
+      'es': 'Filas por pagina:',
+      'en': '',
+    },
+    'as4gz8e0': {
+      'es': '10',
+      'en': '',
+    },
+    'm44mrcgf': {
+      'es': '40',
+      'en': '',
+    },
+    'dsced62g': {
+      'es': '50',
+      'en': '',
+    },
+    'ylfz619c': {
+      'es': '100',
+      'en': '',
+    },
+    '0jg0ltkw': {
+      'es': 'Buscar...',
+      'en': '',
+    },
+    'b0o7thrc': {
+      'es': 'Imagen',
+      'en': 'Image',
+    },
+    'k54tynzr': {
+      'es': 'Título',
+      'en': 'Title',
+    },
+    '3cbzz5i4': {
+      'es': 'Duración',
+      'en': 'Duration',
+    },
+    'com15ekj': {
+      'es': 'Creación',
+      'en': 'Creation',
+    },
+    'fkgz6ozu': {
+      'es': 'Autor',
+      'en': 'Author',
+    },
+    'eiwnidn3': {
+      'es': 'Valoración',
+      'en': 'Rating',
+    },
+    '5w67oup2': {
+      'es': 'Opciónes',
+      'en': 'Options',
+    },
+    'gsj4ehtl': {
+      'es': 'Imagen',
+      'en': 'Image',
+    },
+    'g316lqn2': {
+      'es': 'Título',
+      'en': 'Title',
+    },
+    '4vn8edqx': {
+      'es': 'Duración',
+      'en': 'Duration',
+    },
+    'q19y36wm': {
+      'es': 'Creación',
+      'en': 'Creation',
+    },
+    'dc0ln6kk': {
+      'es': 'Opciónes',
+      'en': 'Options',
+    },
+    'jzp5rbeh': {
+      'es': 'Busquedas...',
+      'en': 'Searches...',
+    },
+    'da9gtcq4': {
+      'es': 'Home',
+      'en': '',
+    },
+  },
+  // keywordspage
+  {
+    'w4rf1i0q': {
+      'es': 'Palabras Clave',
+      'en': 'Keywords',
+    },
+    'azvmb0op': {
+      'es': 'Palabras Clave',
+      'en': 'Keywords',
+    },
+    '5sedmpz5': {
+      'es': 'Home',
+      'en': '',
+    },
+  },
+  // details
+  {
+    'cul8lt3v': {
+      'es': 'Duración:',
+      'en': '',
+    },
+    'anmo0nx5': {
+      'es': ' || ',
+      'en': '',
+    },
+    'rckmtohv': {
+      'es': 'Disponible',
+      'en': 'Available',
+    },
+    'csow4e5b': {
+      'es': 'Resumen',
+      'en': 'Summary',
+    },
+    '7ex11614': {
+      'es': 'Personajes',
+      'en': 'Characters',
+    },
+    'a54s98aq': {
+      'es': 'Titulares',
+      'en': 'Headlines',
+    },
+    'tp9jggqn': {
+      'es': 'Total de palabras',
+      'en': 'Total words',
+    },
+    '8jccglw4': {
+      'es': 'Descargar',
+      'en': 'Download',
+    },
+    'q14k52bj': {
+      'es': 'Transcripción',
+      'en': 'Transcription',
+    },
+    'ts87n37q': {
+      'es': 'Upss! algo salio mal con el video o la transcripción...',
+      'en': 'Oops! something went wrong with the video or the transcription...',
+    },
+    '23kruf6n': {
+      'es': 'Autor',
+      'en': 'Author',
+    },
+    'g9nmjppv': {
+      'es': 'Resumen',
+      'en': 'Summary',
+    },
+    'z3r3s1ff': {
+      'es': 'Palabras clave',
+      'en': 'Keywords',
+    },
+    'r9dnbayy': {
+      'es': 'Home',
+      'en': '',
+    },
+  },
+  // ProfilePage
+  {
+    '25q06bix': {
+      'es': 'Acceso a:',
+      'en': 'Access to:',
+    },
+    '7lx7agpi': {
+      'es': 'Información de mi cuenta',
+      'en': 'My account information',
+    },
+    'qwy0a6mq': {
+      'es': 'Cambiar password',
+      'en': 'Change password',
+    },
+    'emllpp2g': {
+      'es': 'Editar Perfil',
+      'en': 'Edit profile',
+    },
+    'h1l7c2dx': {
+      'es': 'Soporte',
+      'en': 'Medium',
+    },
+    'g1wkim9h': {
+      'es': 'Tutorial',
+      'en': 'Tutorial',
+    },
+    'yh43vwml': {
+      'es': 'Reportar un problema',
+      'en': 'report a problem',
+    },
+    'qyh1klmt': {
+      'es': 'Idioma',
+      'en': 'Language',
+    },
+    'eofk0yzt': {
+      'es': 'Light ',
+      'en': '',
+    },
+    'iqe8yt55': {
+      'es': 'Dark',
+      'en': '',
+    },
+    'kfran9zk': {
+      'es': 'Salir',
+      'en': 'Log Out',
+    },
+    'h2es946e': {
+      'es': 'Mi Perfil',
+      'en': 'My profile',
+    },
+    'mft9a193': {
+      'es': '__',
+      'en': '',
     },
   },
   // sideNav_Mail
@@ -469,6 +742,18 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     'q6pp7ws2': {
       'es': 'Panel',
       'en': 'Panel',
+    },
+    'p2klqhvm': {
+      'es': 'Estatus',
+      'en': 'Status',
+    },
+    'ek3ckqq5': {
+      'es': 'Perfil',
+      'en': 'Profile',
+    },
+    '7xxwk6ow': {
+      'es': 'Administración',
+      'en': 'Administration',
     },
     'nd6d3iik': {
       'es': 'Usuarios',
@@ -504,8 +789,20 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': 'Informaciòn',
       'en': '',
     },
+    '3mnnvfph': {
+      'es': '00:01',
+      'en': '',
+    },
+    'xh2cffsq': {
+      'es': 'Hello World',
+      'en': '',
+    },
     'n59qhwj5': {
       'es': 'Personajes',
+      'en': '',
+    },
+    'jl3cp18k': {
+      'es': 'Hello World',
       'en': '',
     },
     'fsra0mdw': {
@@ -564,6 +861,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': 'Resumen',
       'en': '',
     },
+    'snflzq8j': {
+      'es': 'Hello World',
+      'en': '',
+    },
     '6szcgebe': {
       'es': '',
       'en': '',
@@ -572,12 +873,20 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': 'Resumen extendido',
       'en': '',
     },
+    'pw26wzyg': {
+      'es': 'Hello World',
+      'en': '',
+    },
     'ugacbtj8': {
       'es': '',
       'en': '',
     },
     'lgs85b8z': {
       'es': 'Titulares',
+      'en': '',
+    },
+    '90t0j0te': {
+      'es': 'Hello World',
       'en': '',
     },
     'srkg5uch': {
@@ -637,6 +946,79 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     '7hblt8lt': {
       'es': 'Cerrar mi sesion.',
       'en': 'Close my session.',
+    },
+  },
+  // MensajeRating
+  {
+    'aa2u61r8': {
+      'es': 'Hola!',
+      'en': '',
+    },
+    'o1mgntdq': {
+      'es':
+          'Solo la persona propietaria de la transcripción puede calificarla.',
+      'en': '',
+    },
+  },
+  // ChoiceKeywords
+  {
+    'blctitrc': {
+      'es': 'Option 1',
+      'en': '',
+    },
+  },
+  // searchComponent
+  {
+    'ntqdgjis': {
+      'es': 'Search platform...',
+      'en': '',
+    },
+    'y7vjr70e': {
+      'es': 'Limpiar',
+      'en': 'Clean',
+    },
+    '7i2l1y30': {
+      'es': '¿Que buscamos hoy?',
+      'en': 'What are we looking for today?',
+    },
+    'juv76i5d': {
+      'es': 'Reproducir',
+      'en': 'play',
+    },
+    's5zonvmp': {
+      'es': 'ESC',
+      'en': 'To close',
+    },
+    'hfcup9g8': {
+      'es': 'Para cerrar',
+      'en': 'To close',
+    },
+  },
+  // ProfileComponent
+  {
+    'j4g12cp9': {
+      'es': 'Opciónes de mi cuenta',
+      'en': 'My account options',
+    },
+    'rqswz96x': {
+      'es': 'Mi Cuenta',
+      'en': 'My account',
+    },
+    'wz805e6s': {
+      'es': 'Ajustes',
+      'en': 'Settings',
+    },
+    't449lwzn': {
+      'es': 'Light Mode',
+      'en': '',
+    },
+    'bq14hloq': {
+      'es': 'Dark Mode',
+      'en': '',
+    },
+    'tgts6mx8': {
+      'es': 'Salir de la aplicación',
+      'en': 'Exit application',
     },
   },
   // Miscellaneous

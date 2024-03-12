@@ -14,14 +14,14 @@ class TenantStruct extends BaseStruct {
 
   // "id" field.
   int? _id;
-  int get id => _id ?? 0;
+  int get id => _id ?? 1;
   set id(int? val) => _id = val;
   void incrementId(int amount) => _id = id + amount;
   bool hasId() => _id != null;
 
   // "name" field.
   String? _name;
-  String get name => _name ?? '';
+  String get name => _name ?? 'monterrey';
   set name(String? val) => _name = val;
   bool hasName() => _name != null;
 

@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import '/auth/custom_auth/custom_auth_user_provider.dart';
 
 import '/index.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -125,10 +124,38 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const UsersWidget(),
         ),
         FFRoute(
+          name: 'dashboardOld',
+          path: '/dashboardOld',
+          requireAuth: true,
+          builder: (context, params) => const DashboardOldWidget(),
+        ),
+        FFRoute(
           name: 'dashboard',
           path: '/dashboard',
           requireAuth: true,
           builder: (context, params) => const DashboardWidget(),
+        ),
+        FFRoute(
+          name: 'keywordspage',
+          path: '/keywordspage',
+          builder: (context, params) => KeywordspageWidget(
+            id: params.getParam('id', ParamType.int),
+            keywords: params.getParam('keywords', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'details',
+          path: '/details',
+          requireAuth: true,
+          builder: (context, params) => DetailsWidget(
+            id: params.getParam('id', ParamType.int),
+            title: params.getParam('title', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'ProfilePage',
+          path: '/profilePage',
+          builder: (context, params) => const ProfilePageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -311,15 +338,11 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
-                    ),
+              ? Container(
+                  color: Colors.transparent,
+                  child: Image.asset(
+                    'assets/images/MMBlack.png',
+                    fit: BoxFit.scaleDown,
                   ),
                 )
               : page;

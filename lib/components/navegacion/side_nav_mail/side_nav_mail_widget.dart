@@ -187,6 +187,165 @@ class _SideNavMailWidgetState extends State<SideNavMailWidget>
                     highlightColor: Colors.transparent,
                     onTap: () async {
                       context.goNamed(
+                        'dashboardOld',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: const TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 0),
+                          ),
+                        },
+                      );
+                    },
+                    child: Container(
+                      width: FFAppState().menus ? 49.0 : 200.0,
+                      height: 40.0,
+                      decoration: BoxDecoration(
+                        color: widget.selectedNav == 3
+                            ? const Color(0xFF4C5564)
+                            : const Color(0xFF242D3C),
+                        borderRadius: BorderRadius.circular(6.0),
+                        shape: BoxShape.rectangle,
+                        border: Border.all(
+                          color: widget.selectedNav == 3
+                              ? const Color(0xFF4C5564)
+                              : const Color(0xFF242D3C),
+                          width: 1.0,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            12.0, 0.0, 12.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Icon(
+                              Icons.query_stats,
+                              color: FlutterFlowTheme.of(context).info,
+                              size: 20.0,
+                            ),
+                            if (!FFAppState().menus)
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    12.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  FFLocalizations.of(context).getText(
+                                    'p2klqhvm' /* Estatus */,
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Readex Pro',
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        fontSize: 12.0,
+                                      ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 2.0, 16.0, 10.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.goNamed(
+                        'ProfilePage',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: const TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 0),
+                          ),
+                        },
+                      );
+                    },
+                    child: Container(
+                      width: FFAppState().menus ? 49.0 : 200.0,
+                      height: 40.0,
+                      decoration: BoxDecoration(
+                        color: widget.selectedNav == 4
+                            ? const Color(0xFF4C5564)
+                            : const Color(0xFF242D3C),
+                        borderRadius: BorderRadius.circular(6.0),
+                        shape: BoxShape.rectangle,
+                        border: Border.all(
+                          color: widget.selectedNav == 4
+                              ? const Color(0xFF4C5564)
+                              : const Color(0xFF242D3C),
+                          width: 1.0,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            12.0, 0.0, 12.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Icon(
+                              Icons.person_sharp,
+                              color: FlutterFlowTheme.of(context).info,
+                              size: 20.0,
+                            ),
+                            if (!FFAppState().menus)
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    12.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  FFLocalizations.of(context).getText(
+                                    'ek3ckqq5' /* Perfil */,
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Readex Pro',
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        fontSize: 12.0,
+                                      ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 190.0,
+                  child: Divider(
+                    thickness: 1.0,
+                    indent: 8.0,
+                    color: FlutterFlowTheme.of(context).primaryText,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                  child: Text(
+                    FFLocalizations.of(context).getText(
+                      '7xxwk6ow' /* Administración */,
+                    ),
+                    style: FlutterFlowTheme.of(context).labelSmall,
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 10.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.goNamed(
                         'users',
                         extra: <String, dynamic>{
                           kTransitionInfoKey: const TransitionInfo(

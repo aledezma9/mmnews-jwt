@@ -6,24 +6,16 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class AllTranscriptionsPaginatedStruct extends BaseStruct {
   AllTranscriptionsPaginatedStruct({
-    ItemsStruct? items,
     int? total,
     int? page,
     int? size,
     int? pages,
-  })  : _items = items,
-        _total = total,
+    List<ItemsStruct>? items,
+  })  : _total = total,
         _page = page,
         _size = size,
-        _pages = pages;
-
-  // "items" field.
-  ItemsStruct? _items;
-  ItemsStruct get items => _items ?? ItemsStruct();
-  set items(ItemsStruct? val) => _items = val;
-  void updateItems(Function(ItemsStruct) updateFn) =>
-      updateFn(_items ??= ItemsStruct());
-  bool hasItems() => _items != null;
+        _pages = pages,
+        _items = items;
 
   // "total" field.
   int? _total;
@@ -53,13 +45,24 @@ class AllTranscriptionsPaginatedStruct extends BaseStruct {
   void incrementPages(int amount) => _pages = pages + amount;
   bool hasPages() => _pages != null;
 
+  // "items" field.
+  List<ItemsStruct>? _items;
+  List<ItemsStruct> get items => _items ?? const [];
+  set items(List<ItemsStruct>? val) => _items = val;
+  void updateItems(Function(List<ItemsStruct>) updateFn) =>
+      updateFn(_items ??= []);
+  bool hasItems() => _items != null;
+
   static AllTranscriptionsPaginatedStruct fromMap(Map<String, dynamic> data) =>
       AllTranscriptionsPaginatedStruct(
-        items: ItemsStruct.maybeFromMap(data['items']),
         total: castToType<int>(data['total']),
         page: castToType<int>(data['page']),
         size: castToType<int>(data['size']),
         pages: castToType<int>(data['pages']),
+        items: getStructList(
+          data['items'],
+          ItemsStruct.fromMap,
+        ),
       );
 
   static AllTranscriptionsPaginatedStruct? maybeFromMap(dynamic data) => data
@@ -68,19 +71,15 @@ class AllTranscriptionsPaginatedStruct extends BaseStruct {
       : null;
 
   Map<String, dynamic> toMap() => {
-        'items': _items?.toMap(),
         'total': _total,
         'page': _page,
         'size': _size,
         'pages': _pages,
+        'items': _items?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
-        'items': serializeParam(
-          _items,
-          ParamType.DataStruct,
-        ),
         'total': serializeParam(
           _total,
           ParamType.int,
@@ -97,17 +96,16 @@ class AllTranscriptionsPaginatedStruct extends BaseStruct {
           _pages,
           ParamType.int,
         ),
+        'items': serializeParam(
+          _items,
+          ParamType.DataStruct,
+          true,
+        ),
       }.withoutNulls;
 
   static AllTranscriptionsPaginatedStruct fromSerializableMap(
           Map<String, dynamic> data) =>
       AllTranscriptionsPaginatedStruct(
-        items: deserializeStructParam(
-          data['items'],
-          ParamType.DataStruct,
-          false,
-          structBuilder: ItemsStruct.fromSerializableMap,
-        ),
         total: deserializeParam(
           data['total'],
           ParamType.int,
@@ -128,6 +126,12 @@ class AllTranscriptionsPaginatedStruct extends BaseStruct {
           ParamType.int,
           false,
         ),
+        items: deserializeStructParam<ItemsStruct>(
+          data['items'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: ItemsStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -135,28 +139,27 @@ class AllTranscriptionsPaginatedStruct extends BaseStruct {
 
   @override
   bool operator ==(Object other) {
+    const listEquality = ListEquality();
     return other is AllTranscriptionsPaginatedStruct &&
-        items == other.items &&
         total == other.total &&
         page == other.page &&
         size == other.size &&
-        pages == other.pages;
+        pages == other.pages &&
+        listEquality.equals(items, other.items);
   }
 
   @override
   int get hashCode =>
-      const ListEquality().hash([items, total, page, size, pages]);
+      const ListEquality().hash([total, page, size, pages, items]);
 }
 
 AllTranscriptionsPaginatedStruct createAllTranscriptionsPaginatedStruct({
-  ItemsStruct? items,
   int? total,
   int? page,
   int? size,
   int? pages,
 }) =>
     AllTranscriptionsPaginatedStruct(
-      items: items ?? ItemsStruct(),
       total: total,
       page: page,
       size: size,

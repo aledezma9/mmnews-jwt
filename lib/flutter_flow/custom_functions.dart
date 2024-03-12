@@ -9,7 +9,6 @@ import 'lat_lng.dart';
 import 'place.dart';
 import 'uploaded_file.dart';
 import '/backend/schema/structs/index.dart';
-import '/backend/schema/enums/enums.dart';
 import '/auth/custom_auth/auth_util.dart';
 
 dynamic decodeJwtPayload(String jwtToken) {
@@ -162,6 +161,8 @@ String expiratinTimeToken(
 bool isExpirationWithinFiveMinutes(
   int expEpoch,
   int localEpoch,
+  bool isShow,
+  int minutes,
 ) {
   DateTime exp = DateTime.fromMillisecondsSinceEpoch(expEpoch * 1000);
   DateTime local = DateTime.fromMillisecondsSinceEpoch(localEpoch * 1000);
@@ -170,5 +171,108 @@ bool isExpirationWithinFiveMinutes(
   Duration diferencia = exp.difference(local);
 
   // Verifica si la diferencia en minutos es menor a 5
-  return diferencia.inMinutes < 5;
+  return diferencia.inMinutes < minutes && !isShow;
+}
+
+String? duration(String? duracionString) {
+  if (duracionString == null) {
+    return "Duración desconocida";
+  }
+  // recibo un valor por ejemplo este 393.49 y quiero convertirlo a tiempo, en este caso es 6.33 min
+  double duracionEnSegundos = double.tryParse(duracionString) ?? 0.0;
+
+  int horas = (duracionEnSegundos / 3600).floor();
+  int minutos = (duracionEnSegundos % 3600) ~/ 60;
+  int segundos = (duracionEnSegundos % 60).round();
+
+  String resultado = '';
+  if (horas > 0) {
+    resultado += '$horas H ';
+  }
+
+  if (minutos > 0) {
+    resultado += '$minutos m ';
+  }
+
+  if (segundos > 0) {
+    resultado += '$segundos s';
+  }
+
+  return resultado.trim(); // Eliminar espacios en blanco adicionales al final
+}
+
+String formatDateDays(String date) {
+  final inputFormat = DateFormat('yyyy-MM-ddTHH:mm:ssZ');
+  final outputFormat = DateFormat('EEEE, d MMMM, y  h:mm a', 'es_ES');
+  final dateTime = inputFormat.parse(date);
+  return outputFormat.format(dateTime);
+}
+
+List<String> convetStringToList(String keywords) {
+  String keywordsLimpio = keywords.trim().replaceAll(RegExp(r'^,+|,+$'), '');
+
+  // Dividir la cadena en partes
+  return keywordsLimpio.split(RegExp(r'\s*,\s*'));
+}
+
+bool pagedecrement(
+  int paginaapi,
+  int paginaapp,
+) {
+  if (paginaapi == 1 && paginaapp == 1) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+bool paginateCount(
+  int paginatotal,
+  int pagina2,
+) {
+  return paginatotal == pagina2;
+}
+
+int convertStringToInteger(String string) {
+  return int.parse(string);
+}
+
+List<int> calcularOpcionesDropdown(int totalItems) {
+  List<int> opciones = [10, 20, 30, 40, 50, 100]; // Lista actualizada
+  int limiteMaximo = 100;
+
+  // Filtrar las opciones para asegurar que no excedan el límite máximo
+  List<int> opcionesValidas =
+      opciones.where((opcion) => opcion <= limiteMaximo).toList();
+
+  // Ordenar las opciones de menor a mayor
+  opcionesValidas.sort();
+
+  return opcionesValidas;
+}
+
+String contarPalabrasEnSubtitulos(List<dynamic> subtitulos) {
+  int totalPalabras = 0;
+
+  for (var subtitulo in subtitulos) {
+    String texto = subtitulo['text'] ?? '';
+    // Dividir el texto en palabras basado en espacios y contarlas
+    // Se asume que las palabras están separadas por espacios
+    // Se filtran elementos vacíos para evitar contar espacios adicionales como palabras
+    List<String> palabras =
+        texto.split(' ').where((palabra) => palabra.isNotEmpty).toList();
+    totalPalabras += palabras.length;
+  }
+
+  return totalPalabras.toString();
+}
+
+String userNameToInitiales(String fullname) {
+  List<String> nameSurname = fullname.split('.');
+  if (nameSurname.length >= 2) {
+    String initials = nameSurname[0][0] + nameSurname[1][0];
+    return initials.toUpperCase();
+  } else {
+    return 'U';
+  }
 }

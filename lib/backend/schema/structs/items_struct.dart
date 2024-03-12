@@ -14,11 +14,11 @@ class ItemsStruct extends BaseStruct {
     String? userName,
     double? duration,
     String? updatedAt,
-    String? transcriptionDocPath,
-    String? mediaThumbnailPath,
     String? status,
-    String? rating,
     String? keywords,
+    int? rating,
+    String? mediaThumbnailPath,
+    String? transcriptionDocPath,
   })  : _title = title,
         _createdAt = createdAt,
         _transcriptionId = transcriptionId,
@@ -26,11 +26,11 @@ class ItemsStruct extends BaseStruct {
         _userName = userName,
         _duration = duration,
         _updatedAt = updatedAt,
-        _transcriptionDocPath = transcriptionDocPath,
-        _mediaThumbnailPath = mediaThumbnailPath,
         _status = status,
+        _keywords = keywords,
         _rating = rating,
-        _keywords = keywords;
+        _mediaThumbnailPath = mediaThumbnailPath,
+        _transcriptionDocPath = transcriptionDocPath;
 
   // "title" field.
   String? _title;
@@ -78,11 +78,24 @@ class ItemsStruct extends BaseStruct {
   set updatedAt(String? val) => _updatedAt = val;
   bool hasUpdatedAt() => _updatedAt != null;
 
-  // "transcription_doc_path" field.
-  String? _transcriptionDocPath;
-  String get transcriptionDocPath => _transcriptionDocPath ?? '';
-  set transcriptionDocPath(String? val) => _transcriptionDocPath = val;
-  bool hasTranscriptionDocPath() => _transcriptionDocPath != null;
+  // "status" field.
+  String? _status;
+  String get status => _status ?? '';
+  set status(String? val) => _status = val;
+  bool hasStatus() => _status != null;
+
+  // "keywords" field.
+  String? _keywords;
+  String get keywords => _keywords ?? '';
+  set keywords(String? val) => _keywords = val;
+  bool hasKeywords() => _keywords != null;
+
+  // "rating" field.
+  int? _rating;
+  int get rating => _rating ?? 0;
+  set rating(int? val) => _rating = val;
+  void incrementRating(int amount) => _rating = rating + amount;
+  bool hasRating() => _rating != null;
 
   // "media_thumbnail_path" field.
   String? _mediaThumbnailPath;
@@ -90,23 +103,11 @@ class ItemsStruct extends BaseStruct {
   set mediaThumbnailPath(String? val) => _mediaThumbnailPath = val;
   bool hasMediaThumbnailPath() => _mediaThumbnailPath != null;
 
-  // "status" field.
-  String? _status;
-  String get status => _status ?? '';
-  set status(String? val) => _status = val;
-  bool hasStatus() => _status != null;
-
-  // "rating" field.
-  String? _rating;
-  String get rating => _rating ?? '';
-  set rating(String? val) => _rating = val;
-  bool hasRating() => _rating != null;
-
-  // "keywords" field.
-  String? _keywords;
-  String get keywords => _keywords ?? '';
-  set keywords(String? val) => _keywords = val;
-  bool hasKeywords() => _keywords != null;
+  // "transcription_doc_path" field.
+  String? _transcriptionDocPath;
+  String get transcriptionDocPath => _transcriptionDocPath ?? '';
+  set transcriptionDocPath(String? val) => _transcriptionDocPath = val;
+  bool hasTranscriptionDocPath() => _transcriptionDocPath != null;
 
   static ItemsStruct fromMap(Map<String, dynamic> data) => ItemsStruct(
         title: data['title'] as String?,
@@ -116,11 +117,11 @@ class ItemsStruct extends BaseStruct {
         userName: data['user_name'] as String?,
         duration: castToType<double>(data['duration']),
         updatedAt: data['updated_at'] as String?,
-        transcriptionDocPath: data['transcription_doc_path'] as String?,
-        mediaThumbnailPath: data['media_thumbnail_path'] as String?,
         status: data['status'] as String?,
-        rating: data['rating'] as String?,
         keywords: data['keywords'] as String?,
+        rating: castToType<int>(data['rating']),
+        mediaThumbnailPath: data['media_thumbnail_path'] as String?,
+        transcriptionDocPath: data['transcription_doc_path'] as String?,
       );
 
   static ItemsStruct? maybeFromMap(dynamic data) =>
@@ -134,11 +135,11 @@ class ItemsStruct extends BaseStruct {
         'user_name': _userName,
         'duration': _duration,
         'updated_at': _updatedAt,
-        'transcription_doc_path': _transcriptionDocPath,
-        'media_thumbnail_path': _mediaThumbnailPath,
         'status': _status,
-        'rating': _rating,
         'keywords': _keywords,
+        'rating': _rating,
+        'media_thumbnail_path': _mediaThumbnailPath,
+        'transcription_doc_path': _transcriptionDocPath,
       }.withoutNulls;
 
   @override
@@ -171,24 +172,24 @@ class ItemsStruct extends BaseStruct {
           _updatedAt,
           ParamType.String,
         ),
-        'transcription_doc_path': serializeParam(
-          _transcriptionDocPath,
+        'status': serializeParam(
+          _status,
           ParamType.String,
+        ),
+        'keywords': serializeParam(
+          _keywords,
+          ParamType.String,
+        ),
+        'rating': serializeParam(
+          _rating,
+          ParamType.int,
         ),
         'media_thumbnail_path': serializeParam(
           _mediaThumbnailPath,
           ParamType.String,
         ),
-        'status': serializeParam(
-          _status,
-          ParamType.String,
-        ),
-        'rating': serializeParam(
-          _rating,
-          ParamType.String,
-        ),
-        'keywords': serializeParam(
-          _keywords,
+        'transcription_doc_path': serializeParam(
+          _transcriptionDocPath,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -230,9 +231,19 @@ class ItemsStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
-        transcriptionDocPath: deserializeParam(
-          data['transcription_doc_path'],
+        status: deserializeParam(
+          data['status'],
           ParamType.String,
+          false,
+        ),
+        keywords: deserializeParam(
+          data['keywords'],
+          ParamType.String,
+          false,
+        ),
+        rating: deserializeParam(
+          data['rating'],
+          ParamType.int,
           false,
         ),
         mediaThumbnailPath: deserializeParam(
@@ -240,18 +251,8 @@ class ItemsStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
-        status: deserializeParam(
-          data['status'],
-          ParamType.String,
-          false,
-        ),
-        rating: deserializeParam(
-          data['rating'],
-          ParamType.String,
-          false,
-        ),
-        keywords: deserializeParam(
-          data['keywords'],
+        transcriptionDocPath: deserializeParam(
+          data['transcription_doc_path'],
           ParamType.String,
           false,
         ),
@@ -270,11 +271,11 @@ class ItemsStruct extends BaseStruct {
         userName == other.userName &&
         duration == other.duration &&
         updatedAt == other.updatedAt &&
-        transcriptionDocPath == other.transcriptionDocPath &&
-        mediaThumbnailPath == other.mediaThumbnailPath &&
         status == other.status &&
+        keywords == other.keywords &&
         rating == other.rating &&
-        keywords == other.keywords;
+        mediaThumbnailPath == other.mediaThumbnailPath &&
+        transcriptionDocPath == other.transcriptionDocPath;
   }
 
   @override
@@ -286,11 +287,11 @@ class ItemsStruct extends BaseStruct {
         userName,
         duration,
         updatedAt,
-        transcriptionDocPath,
-        mediaThumbnailPath,
         status,
+        keywords,
         rating,
-        keywords
+        mediaThumbnailPath,
+        transcriptionDocPath
       ]);
 }
 
@@ -302,11 +303,11 @@ ItemsStruct createItemsStruct({
   String? userName,
   double? duration,
   String? updatedAt,
-  String? transcriptionDocPath,
-  String? mediaThumbnailPath,
   String? status,
-  String? rating,
   String? keywords,
+  int? rating,
+  String? mediaThumbnailPath,
+  String? transcriptionDocPath,
 }) =>
     ItemsStruct(
       title: title,
@@ -316,9 +317,9 @@ ItemsStruct createItemsStruct({
       userName: userName,
       duration: duration,
       updatedAt: updatedAt,
-      transcriptionDocPath: transcriptionDocPath,
-      mediaThumbnailPath: mediaThumbnailPath,
       status: status,
-      rating: rating,
       keywords: keywords,
+      rating: rating,
+      mediaThumbnailPath: mediaThumbnailPath,
+      transcriptionDocPath: transcriptionDocPath,
     );

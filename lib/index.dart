@@ -11,4 +11,8 @@ export '/simple_auth_flow/authregister/authregister_widget.dart'
 export '/simple_auth_flow/reset_password/reset_password_widget.dart'
     show ResetPasswordWidget;
 export '/pages/users/users_widget.dart' show UsersWidget;
+export '/pages/dashboard_old/dashboard_old_widget.dart' show DashboardOldWidget;
 export '/pages/dashboard/dashboard_widget.dart' show DashboardWidget;
+export '/pages/keywordspage/keywordspage_widget.dart' show KeywordspageWidget;
+export '/players/details/details_widget.dart' show DetailsWidget;
+export '/pages/profile_page/profile_page_widget.dart' show ProfilePageWidget;

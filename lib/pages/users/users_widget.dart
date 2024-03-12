@@ -13,6 +13,7 @@ import 'dart:async';
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'users_model.dart';
 export 'users_model.dart';
@@ -37,88 +38,75 @@ class _UsersWidgetState extends State<UsersWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       Function() navigate = () {};
-      if (FFAppState().logout) {
-        GoRouter.of(context).prepareAuthEvent();
-        await authManager.signOut();
-        GoRouter.of(context).clearRedirectLocation();
-
-        navigate = () => context.goNamedAuth('auth-login', context.mounted);
-      } else {
-        _model.instantTimer = InstantTimer.periodic(
-          duration: const Duration(milliseconds: 1000),
-          callback: (timer) async {
-            _model.apiAllUsers =
-                await TranscriptionAPIGroup.getAllUsersCall.call(
-              token: currentAuthenticationToken,
-            );
-            if ((_model.apiAllUsers?.succeeded ?? true)) {
-              setState(() => _model.apiRequestCompleter = null);
-              if (functions.isExpirationWithinFiveMinutes(
-                      currentAuthTokenExpiration!.secondsSinceEpoch,
-                      getCurrentTimestamp.secondsSinceEpoch)
-                  ? true
-                  : false) {
-                _model.instantTimer?.cancel();
-                await showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (dialogContext) {
-                    return Dialog(
-                      elevation: 0,
-                      insetPadding: EdgeInsets.zero,
-                      backgroundColor: Colors.transparent,
-                      alignment: const AlignmentDirectional(0.0, 0.0)
-                          .resolve(Directionality.of(context)),
-                      child: GestureDetector(
-                        onTap: () => _model.unfocusNode.canRequestFocus
-                            ? FocusScope.of(context)
-                                .requestFocus(_model.unfocusNode)
-                            : FocusScope.of(context).unfocus(),
-                        child: const AlertEndSesionWidget(
-                          navigare: 'users',
-                        ),
-                      ),
-                    );
-                  },
-                ).then((value) => setState(() {}));
-
-                setState(() {
-                  FFAppState().startTimer = true;
-                });
-              } else {
-                setState(() {
-                  FFAppState().logout = false;
-                });
-              }
-            } else {
-              if ((_model.apiAllUsers?.statusCode ?? 200) == 401) {
-                GoRouter.of(context).prepareAuthEvent();
-                await authManager.signOut();
-                GoRouter.of(context).clearRedirectLocation();
-
-                navigate =
-                    () => context.goNamedAuth('auth-login', context.mounted);
-              } else {
-                ScaffoldMessenger.of(context).clearSnackBars();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      (_model.apiAllUsers?.bodyText ?? ''),
-                      style: FlutterFlowTheme.of(context).titleSmall.override(
-                            fontFamily: 'Readex Pro',
-                            color: FlutterFlowTheme.of(context).primaryText,
-                          ),
+      _model.instantTimer = InstantTimer.periodic(
+        duration: const Duration(milliseconds: 1000),
+        callback: (timer) async {
+          if (functions.isExpirationWithinFiveMinutes(
+              currentAuthTokenExpiration!.secondsSinceEpoch,
+              getCurrentTimestamp.secondsSinceEpoch,
+              FFAppState().logout,
+              FFAppConstants.expirationTime)) {
+            setState(() {
+              FFAppState().logout = true;
+            });
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (dialogContext) {
+                return Dialog(
+                  elevation: 0,
+                  insetPadding: EdgeInsets.zero,
+                  backgroundColor: Colors.transparent,
+                  alignment: const AlignmentDirectional(0.0, 0.0)
+                      .resolve(Directionality.of(context)),
+                  child: GestureDetector(
+                    onTap: () => _model.unfocusNode.canRequestFocus
+                        ? FocusScope.of(context)
+                            .requestFocus(_model.unfocusNode)
+                        : FocusScope.of(context).unfocus(),
+                    child: const AlertEndSesionWidget(
+                      navigare: 'dashboard',
                     ),
-                    duration: const Duration(milliseconds: 4000),
-                    backgroundColor: FlutterFlowTheme.of(context).tertiary,
                   ),
                 );
-              }
+              },
+            ).then((value) => setState(() {}));
+          }
+          _model.apiAllUsers = await TranscriptionAPIGroup.getAllUsersCall.call(
+            token: currentAuthenticationToken,
+          );
+          if ((_model.apiAllUsers?.succeeded ?? true)) {
+            setState(() => _model.apiRequestCompleter = null);
+          } else {
+            if ((_model.apiAllUsers?.statusCode ?? 200) == 401) {
+              GoRouter.of(context).prepareAuthEvent();
+              await authManager.signOut();
+              GoRouter.of(context).clearRedirectLocation();
+
+              navigate =
+                  () => context.goNamedAuth('auth-login', context.mounted);
+            } else {
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    (_model.apiAllUsers?.bodyText ?? ''),
+                    style: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Readex Pro',
+                          color: FlutterFlowTheme.of(context).primaryText,
+                        ),
+                  ),
+                  duration: const Duration(milliseconds: 4000),
+                  backgroundColor: FlutterFlowTheme.of(context).tertiary,
+                ),
+              );
             }
-          },
-          startImmediately: true,
-        );
-      }
+
+            return;
+          }
+        },
+        startImmediately: true,
+      );
 
       navigate();
     });
@@ -179,68 +167,16 @@ class _UsersWidgetState extends State<UsersWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: Align(
-                        alignment: const AlignmentDirectional(-1.0, 0.0),
-                        child: Builder(
-                          builder: (context) {
-                            if (FFAppState().menus) {
-                              return Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 16.0, 0.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    if (FFAppState().menus) {
-                                      setState(() {
-                                        FFAppState().menus = false;
-                                      });
-                                    } else {
-                                      setState(() {
-                                        FFAppState().menus = true;
-                                      });
-                                    }
-                                  },
-                                  child: Icon(
-                                    Icons.menu,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 34.0,
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        child: Text(
+                          FFAppConstants.appname,
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Readex Pro',
+                                    fontSize: 19.0,
                                   ),
-                                ),
-                              );
-                            } else {
-                              return Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 16.0, 0.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    if (FFAppState().menus) {
-                                      setState(() {
-                                        FFAppState().menus = false;
-                                      });
-                                    } else {
-                                      setState(() {
-                                        FFAppState().menus = true;
-                                      });
-                                    }
-                                  },
-                                  child: Icon(
-                                    Icons.menu_open,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 34.0,
-                                  ),
-                                ),
-                              );
-                            }
-                          },
                         ),
                       ),
                     ),
@@ -305,18 +241,12 @@ class _UsersWidgetState extends State<UsersWidget> {
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 29.0, 0.0),
                       child: Text(
-                        FFLocalizations.of(context).getText(
-                          'p31h2wey' /* v8 */,
-                        ),
+                        FFAppConstants.version,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Readex Pro',
                               fontSize: 19.0,
                             ),
                       ),
-                    ),
-                    Text(
-                      FFAppState().logout.toString(),
-                      style: FlutterFlowTheme.of(context).bodyMedium,
                     ),
                   ],
                 ),
@@ -388,37 +318,150 @@ class _UsersWidgetState extends State<UsersWidget> {
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      12.0,
-                                                                      6.0,
-                                                                      12.0,
-                                                                      0.0),
-                                                          child: SelectionArea(
-                                                              child: Text(
-                                                            FFLocalizations.of(
-                                                                    context)
-                                                                .getText(
-                                                              'u3rlh7y6' /* Usuarios de la plataforma */,
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .headlineMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Outfit',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  fontSize:
-                                                                      24.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal,
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            if (responsiveVisibility(
+                                                              context: context,
+                                                              phone: false,
+                                                            ))
+                                                              Align(
+                                                                alignment:
+                                                                    const AlignmentDirectional(
+                                                                        -1.0,
+                                                                        0.0),
+                                                                child: Builder(
+                                                                  builder:
+                                                                      (context) {
+                                                                    if (FFAppState()
+                                                                        .menus) {
+                                                                      return Padding(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            16.0,
+                                                                            0.0,
+                                                                            16.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            InkWell(
+                                                                          splashColor:
+                                                                              Colors.transparent,
+                                                                          focusColor:
+                                                                              Colors.transparent,
+                                                                          hoverColor:
+                                                                              Colors.transparent,
+                                                                          highlightColor:
+                                                                              Colors.transparent,
+                                                                          onTap:
+                                                                              () async {
+                                                                            if (FFAppState().menus) {
+                                                                              setState(() {
+                                                                                FFAppState().menus = false;
+                                                                              });
+                                                                            } else {
+                                                                              setState(() {
+                                                                                FFAppState().menus = true;
+                                                                              });
+                                                                            }
+                                                                          },
+                                                                          child:
+                                                                              FaIcon(
+                                                                            FontAwesomeIcons.handPointRight,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).secondaryText,
+                                                                            size:
+                                                                                34.0,
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    } else {
+                                                                      return Visibility(
+                                                                        visible:
+                                                                            responsiveVisibility(
+                                                                          context:
+                                                                              context,
+                                                                          phone:
+                                                                              false,
+                                                                          tablet:
+                                                                              false,
+                                                                        ),
+                                                                        child:
+                                                                            Padding(
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                              16.0,
+                                                                              0.0,
+                                                                              16.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              InkWell(
+                                                                            splashColor:
+                                                                                Colors.transparent,
+                                                                            focusColor:
+                                                                                Colors.transparent,
+                                                                            hoverColor:
+                                                                                Colors.transparent,
+                                                                            highlightColor:
+                                                                                Colors.transparent,
+                                                                            onTap:
+                                                                                () async {
+                                                                              if (FFAppState().menus) {
+                                                                                setState(() {
+                                                                                  FFAppState().menus = false;
+                                                                                });
+                                                                              } else {
+                                                                                setState(() {
+                                                                                  FFAppState().menus = true;
+                                                                                });
+                                                                              }
+                                                                            },
+                                                                            child:
+                                                                                FaIcon(
+                                                                              FontAwesomeIcons.solidHandPointLeft,
+                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                              size: 34.0,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    }
+                                                                  },
                                                                 ),
-                                                          )),
+                                                              ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          8.0,
+                                                                          6.0,
+                                                                          12.0,
+                                                                          0.0),
+                                                              child:
+                                                                  SelectionArea(
+                                                                      child:
+                                                                          Text(
+                                                                FFLocalizations.of(
+                                                                        context)
+                                                                    .getText(
+                                                                  'u3rlh7y6' /* Usuarios de la plataforma */,
+                                                                ),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Outfit',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText,
+                                                                      fontSize:
+                                                                          24.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                    ),
+                                                              )),
+                                                            ),
+                                                          ],
                                                         ),
                                                         Padding(
                                                           padding:
@@ -890,51 +933,53 @@ class _UsersWidgetState extends State<UsersWidget> {
                                                   ),
                                                 ),
                                               ),
-                                              Container(
-                                                width: double.infinity,
-                                                height:
-                                                    MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        0.03,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  16.0,
-                                                                  0.0,
-                                                                  16.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        'Tu sesion caduca en ${functions.expiratinTimeToken(currentAuthTokenExpiration!.secondsSinceEpoch, getCurrentTimestamp.secondsSinceEpoch)}',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Outfit',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  fontSize:
-                                                                      22.0,
-                                                                ),
+                                              if (responsiveVisibility(
+                                                context: context,
+                                                phone: false,
+                                              ))
+                                                Container(
+                                                  width: double.infinity,
+                                                  height:
+                                                      MediaQuery.sizeOf(context)
+                                                              .height *
+                                                          0.03,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    16.0,
+                                                                    0.0,
+                                                                    16.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          'Tu sesion caduca en ${functions.expiratinTimeToken(currentAuthTokenExpiration!.secondsSinceEpoch, getCurrentTimestamp.secondsSinceEpoch)}',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .headlineMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Outfit',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                                fontSize: 22.0,
+                                                              ),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
                                             ],
                                           ),
                                         ),

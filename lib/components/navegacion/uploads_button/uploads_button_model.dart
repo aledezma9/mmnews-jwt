@@ -3,6 +3,12 @@ import 'uploads_button_widget.dart' show UploadsButtonWidget;
 import 'package:flutter/material.dart';
 
 class UploadsButtonModel extends FlutterFlowModel<UploadsButtonWidget> {
+  ///  State fields for stateful widgets in this component.
+
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+
   /// Initialization and disposal methods.
 
   @override

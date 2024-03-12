@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'email_register_message_model.dart';
 export 'email_register_message_model.dart';
 
@@ -51,8 +50,6 @@ class _EmailRegisterMessageWidgetState
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       width: double.infinity,
       constraints: const BoxConstraints(
@@ -163,8 +160,11 @@ class _EmailRegisterMessageWidgetState
                                           ),
                                     ),
                                     Text(
-                                      FFLocalizations.of(context).getText(
-                                        '1mh3b2hg' /* 4m ago */,
+                                      dateTimeFormat(
+                                        'relative',
+                                        getCurrentTimestamp,
+                                        locale: FFLocalizations.of(context)
+                                            .languageCode,
                                       ),
                                       style: FlutterFlowTheme.of(context)
                                           .labelSmall,
@@ -175,8 +175,8 @@ class _EmailRegisterMessageWidgetState
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 4.0, 0.0, 0.0),
                                   child: RichText(
-                                    textScaleFactor:
-                                        MediaQuery.of(context).textScaleFactor,
+                                    textScaler:
+                                        MediaQuery.of(context).textScaler,
                                     text: TextSpan(
                                       children: [
                                         TextSpan(

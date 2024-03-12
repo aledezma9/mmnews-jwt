@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/backend/schema/structs/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -62,7 +61,7 @@ class _PlayerBusquedasWidgetState extends State<PlayerBusquedasWidget>
     context.watch<FFAppState>();
 
     return FutureBuilder<ApiCallResponse>(
-      future: TranscriptionAPIGroup.gettranscriptionsbyidCall.call(
+      future: TranscriptionAPIGroup.getTranscriptionByIdCall.call(
         id: widget.id,
         token: currentAuthenticationToken,
       ),
@@ -81,7 +80,7 @@ class _PlayerBusquedasWidgetState extends State<PlayerBusquedasWidget>
             ),
           );
         }
-        final columnGettranscriptionsbyidResponse = snapshot.data!;
+        final columnGetTranscriptionByIdResponse = snapshot.data!;
         return Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -569,13 +568,10 @@ class _PlayerBusquedasWidgetState extends State<PlayerBusquedasWidget>
                                                     padding:
                                                         const EdgeInsets.all(8.0),
                                                     child: Text(
-                                                      valueOrDefault<String>(
-                                                        TranscriptionsSrtJsonStruct
-                                                                .maybeFromMap(
-                                                                    columnGettranscriptionsbyidResponse
-                                                                        .jsonBody)
-                                                            ?.startTime,
-                                                        '00',
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        '3mnnvfph' /* 00:01 */,
                                                       ),
                                                       style:
                                                           FlutterFlowTheme.of(
@@ -614,13 +610,10 @@ class _PlayerBusquedasWidgetState extends State<PlayerBusquedasWidget>
                                                                   0.0),
                                                       child: SelectionArea(
                                                           child: Text(
-                                                        valueOrDefault<String>(
-                                                          TranscriptionsSrtJsonStruct
-                                                                  .maybeFromMap(
-                                                                      columnGettranscriptionsbyidResponse
-                                                                          .jsonBody)
-                                                              ?.text,
-                                                          'text',
+                                                        FFLocalizations.of(
+                                                                context)
+                                                            .getText(
+                                                          'xh2cffsq' /* Hello World */,
                                                         ),
                                                         style: FlutterFlowTheme
                                                                 .of(context)
@@ -725,12 +718,8 @@ class _PlayerBusquedasWidgetState extends State<PlayerBusquedasWidget>
                                     padding: const EdgeInsets.all(8.0),
                                     child: SelectionArea(
                                         child: Text(
-                                      valueOrDefault<String>(
-                                        TranscriptionByIdStruct.maybeFromMap(
-                                                columnGettranscriptionsbyidResponse
-                                                    .jsonBody)
-                                            ?.characterList,
-                                        'characters',
+                                      FFLocalizations.of(context).getText(
+                                        'jl3cp18k' /* Hello World */,
                                       ),
                                       style: FlutterFlowTheme.of(context)
                                           .labelSmall,
@@ -748,14 +737,13 @@ class _PlayerBusquedasWidgetState extends State<PlayerBusquedasWidget>
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: FlutterFlowChoiceChips(
-                                  options: TranscriptionByIdStruct.maybeFromMap(
-                                          columnGettranscriptionsbyidResponse
-                                              .jsonBody)!
-                                      .keywords
-                                      .map((e) => e.keywords)
-                                      .toList()
-                                      .map((label) => ChipData(label))
-                                      .toList(),
+                                  options: [
+                                    ChipData(
+                                        FFLocalizations.of(context).getText(
+                                          'fsra0mdw' /* Option 1 */,
+                                        ),
+                                        Icons.train_outlined)
+                                  ],
                                   onChanged: (val) => setState(() => _model
                                       .choiceChipsValue = val?.firstOrNull),
                                   selectedChipStyle: ChipStyle(
@@ -1262,10 +1250,10 @@ class _PlayerBusquedasWidgetState extends State<PlayerBusquedasWidget>
                                                                     0.0,
                                                                     0.0),
                                                         child: RichText(
-                                                          textScaleFactor:
+                                                          textScaler:
                                                               MediaQuery.of(
                                                                       context)
-                                                                  .textScaleFactor,
+                                                                  .textScaler,
                                                           text: TextSpan(
                                                             children: [
                                                               TextSpan(
@@ -1380,12 +1368,8 @@ class _PlayerBusquedasWidgetState extends State<PlayerBusquedasWidget>
                                     padding: const EdgeInsets.all(8.0),
                                     child: SelectionArea(
                                         child: Text(
-                                      valueOrDefault<String>(
-                                        TranscriptionByIdStruct.maybeFromMap(
-                                                columnGettranscriptionsbyidResponse
-                                                    .jsonBody)
-                                            ?.summarize,
-                                        'resumen',
+                                      FFLocalizations.of(context).getText(
+                                        'snflzq8j' /* Hello World */,
                                       ),
                                       style: FlutterFlowTheme.of(context)
                                           .labelSmall,
@@ -1465,12 +1449,8 @@ class _PlayerBusquedasWidgetState extends State<PlayerBusquedasWidget>
                                     padding: const EdgeInsets.all(8.0),
                                     child: SelectionArea(
                                         child: Text(
-                                      valueOrDefault<String>(
-                                        TranscriptionByIdStruct.maybeFromMap(
-                                                columnGettranscriptionsbyidResponse
-                                                    .jsonBody)
-                                            ?.summarizeAdvanced,
-                                        'resumen extendido',
+                                      FFLocalizations.of(context).getText(
+                                        'pw26wzyg' /* Hello World */,
                                       ),
                                       style: FlutterFlowTheme.of(context)
                                           .labelSmall,
@@ -1550,12 +1530,8 @@ class _PlayerBusquedasWidgetState extends State<PlayerBusquedasWidget>
                                     padding: const EdgeInsets.all(8.0),
                                     child: SelectionArea(
                                         child: Text(
-                                      valueOrDefault<String>(
-                                        TranscriptionByIdStruct.maybeFromMap(
-                                                columnGettranscriptionsbyidResponse
-                                                    .jsonBody)
-                                            ?.characterList,
-                                        'characters',
+                                      FFLocalizations.of(context).getText(
+                                        '90t0j0te' /* Hello World */,
                                       ),
                                       style: FlutterFlowTheme.of(context)
                                           .labelSmall,

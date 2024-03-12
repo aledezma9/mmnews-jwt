@@ -79,39 +79,11 @@ class _AlertEndSesionWidgetState extends State<AlertEndSesionWidget>
               FFAppState().logout = true;
             });
             Navigator.pop(context);
-            if (widget.navigare == 'users') {
-              _model.updatePage(() {
-                FFAppState().logout = true;
-              });
+            GoRouter.of(context).prepareAuthEvent();
+            await authManager.signOut();
+            GoRouter.of(context).clearRedirectLocation();
 
-              context.goNamed(
-                'users',
-                extra: <String, dynamic>{
-                  kTransitionInfoKey: const TransitionInfo(
-                    hasTransition: true,
-                    transitionType: PageTransitionType.fade,
-                    duration: Duration(milliseconds: 0),
-                  ),
-                },
-              );
-            } else if (widget.navigare == 'dashboard') {
-              _model.updatePage(() {
-                FFAppState().logout = true;
-              });
-
-              context.goNamed(
-                'dashboard',
-                extra: <String, dynamic>{
-                  kTransitionInfoKey: const TransitionInfo(
-                    hasTransition: true,
-                    transitionType: PageTransitionType.fade,
-                    duration: Duration(milliseconds: 0),
-                  ),
-                },
-              );
-            } else {
-              return;
-            }
+            context.pushNamedAuth('auth-login', context.mounted);
           }
         },
         startImmediately: true,
@@ -181,17 +153,6 @@ class _AlertEndSesionWidgetState extends State<AlertEndSesionWidget>
                           'laeoua8l' /* Tu sesion caducara pronto */,
                         ),
                         style: FlutterFlowTheme.of(context).headlineMedium,
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 24.0, 0.0),
-                      child: Text(
-                        valueOrDefault<String>(
-                          widget.navigare,
-                          'navegar',
-                        ),
-                        style: FlutterFlowTheme.of(context).labelMedium,
                       ),
                     ),
                     Padding(
@@ -286,44 +247,13 @@ class _AlertEndSesionWidgetState extends State<AlertEndSesionWidget>
                                         FFAppState().logout = true;
                                       });
                                       Navigator.pop(context);
-                                      if (widget.navigare == 'users') {
-                                        _model.updatePage(() {
-                                          FFAppState().logout = true;
-                                        });
+                                      GoRouter.of(context).prepareAuthEvent();
+                                      await authManager.signOut();
+                                      GoRouter.of(context)
+                                          .clearRedirectLocation();
 
-                                        context.goNamed(
-                                          'users',
-                                          extra: <String, dynamic>{
-                                            kTransitionInfoKey: const TransitionInfo(
-                                              hasTransition: true,
-                                              transitionType:
-                                                  PageTransitionType.fade,
-                                              duration:
-                                                  Duration(milliseconds: 0),
-                                            ),
-                                          },
-                                        );
-                                      } else if (widget.navigare ==
-                                          'dashboard') {
-                                        _model.updatePage(() {
-                                          FFAppState().logout = true;
-                                        });
-
-                                        context.goNamed(
-                                          'dashboard',
-                                          extra: <String, dynamic>{
-                                            kTransitionInfoKey: const TransitionInfo(
-                                              hasTransition: true,
-                                              transitionType:
-                                                  PageTransitionType.fade,
-                                              duration:
-                                                  Duration(milliseconds: 0),
-                                            ),
-                                          },
-                                        );
-                                      } else {
-                                        return;
-                                      }
+                                      context.pushNamedAuth(
+                                          'auth-login', context.mounted);
                                     },
                                     text: FFLocalizations.of(context).getText(
                                       'cq6e5efp' /* Salir de la aplicación */,
@@ -402,25 +332,12 @@ class _AlertEndSesionWidgetState extends State<AlertEndSesionWidget>
                                                 ''),
                                           )!)),
                                         );
-                                        _model.updatePage(() {});
                                         Navigator.pop(context);
-                                        if (widget.navigare == 'users') {
-                                          context.pushNamed('users');
-
-                                          _model.updatePage(() {
-                                            FFAppState().logout = false;
-                                          });
-                                        } else if (widget.navigare ==
-                                            'dashboard') {
-                                          context.pushNamed('dashboard');
-
-                                          _model.updatePage(() {
-                                            FFAppState().logout = false;
-                                          });
-                                        } else {
-                                          if (shouldSetState) setState(() {});
-                                          return;
-                                        }
+                                        _model.updatePage(() {
+                                          FFAppState().logout = false;
+                                        });
+                                        if (shouldSetState) setState(() {});
+                                        return;
                                       } else {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
@@ -442,6 +359,8 @@ class _AlertEndSesionWidgetState extends State<AlertEndSesionWidget>
                                                     .secondary,
                                           ),
                                         );
+                                        if (shouldSetState) setState(() {});
+                                        return;
                                       }
 
                                       if (shouldSetState) setState(() {});

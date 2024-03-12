@@ -3,9 +3,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'hometest_model.dart';
 export 'hometest_model.dart';
 
@@ -38,8 +36,6 @@ class _HometestWidgetState extends State<HometestWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -263,103 +259,6 @@ class _HometestWidgetState extends State<HometestWidget> {
                                       FlutterFlowTheme.of(context).bodyMedium,
                                 ),
                               ],
-                            ),
-                          );
-                        },
-                      ),
-                      FutureBuilder<ApiCallResponse>(
-                        future:
-                            TranscriptionAPIGroup.getAllTranscriptionsCall.call(
-                          page: 1,
-                          size: 20,
-                          token: currentAuthenticationToken,
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).primary,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                          final containerGetAllTranscriptionsResponse =
-                              snapshot.data!;
-                          return Container(
-                            width: double.infinity,
-                            height: 100.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                            ),
-                            child: Builder(
-                              builder: (context) {
-                                final transcripciones = TranscriptionAPIGroup
-                                        .getAllTranscriptionsCall
-                                        .items(
-                                          containerGetAllTranscriptionsResponse
-                                              .jsonBody,
-                                        )
-                                        ?.toList() ??
-                                    [];
-                                return ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: transcripciones.length,
-                                  itemBuilder: (context, transcripcionesIndex) {
-                                    final transcripcionesItem =
-                                        transcripciones[transcripcionesIndex];
-                                    return Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      elevation: 4.0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                valueOrDefault<String>(
-                                                  getJsonField(
-                                                    transcripcionesItem,
-                                                    r'''$.title''',
-                                                  )?.toString(),
-                                                  'title',
-                                                ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
-                                              ),
-                                              Text(
-                                                functions
-                                                    .formatName(getJsonField(
-                                                  transcripcionesItem,
-                                                  r'''$.user_name''',
-                                                ).toString()),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
                             ),
                           );
                         },

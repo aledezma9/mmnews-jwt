@@ -20,18 +20,14 @@ class TranscriptionAPIGroup {
   static GetUserByIdV1UsersIdIdGetCall getUserByIdV1UsersIdIdGetCall =
       GetUserByIdV1UsersIdIdGetCall();
   static DeactivateUserCall deactivateUserCall = DeactivateUserCall();
-  static GetTranscriptionStatusV1TranscriptionStatusGetCall
-      getTranscriptionStatusV1TranscriptionStatusGetCall =
-      GetTranscriptionStatusV1TranscriptionStatusGetCall();
-  static CreateTranscriptionStatusV1TranscriptionStatusPostCall
-      createTranscriptionStatusV1TranscriptionStatusPostCall =
-      CreateTranscriptionStatusV1TranscriptionStatusPostCall();
-  static GetTranscriptionStatusTodayV1TranscriptionStatusTodayGetCall
-      getTranscriptionStatusTodayV1TranscriptionStatusTodayGetCall =
-      GetTranscriptionStatusTodayV1TranscriptionStatusTodayGetCall();
-  static GetTranscriptionStatusByUserIdV1TranscriptionStatusTodayIdGetCall
-      getTranscriptionStatusByUserIdV1TranscriptionStatusTodayIdGetCall =
-      GetTranscriptionStatusByUserIdV1TranscriptionStatusTodayIdGetCall();
+  static GetTranscriptionsStatusCall getTranscriptionsStatusCall =
+      GetTranscriptionsStatusCall();
+  static CreateTranscriptionStatusCall createTranscriptionStatusCall =
+      CreateTranscriptionStatusCall();
+  static GetTranscriptionsTodayCall getTranscriptionsTodayCall =
+      GetTranscriptionsTodayCall();
+  static GetTransriptionsByUserIdCall getTransriptionsByUserIdCall =
+      GetTransriptionsByUserIdCall();
   static GetTranscriptionTodayStatusByUserIdV1TranscriptionTodayStatusIdGetCall
       getTranscriptionTodayStatusByUserIdV1TranscriptionTodayStatusIdGetCall =
       GetTranscriptionTodayStatusByUserIdV1TranscriptionTodayStatusIdGetCall();
@@ -43,27 +39,20 @@ class TranscriptionAPIGroup {
       UpdateTranscriptionStatusIsReadedV1TranscriptionStatusIdUserIdPostCall();
   static GetAllTranscriptionsCall getAllTranscriptionsCall =
       GetAllTranscriptionsCall();
-  static UploadMediaTranscriptionV1TranscriptionsPostCall
-      uploadMediaTranscriptionV1TranscriptionsPostCall =
-      UploadMediaTranscriptionV1TranscriptionsPostCall();
-  static GetAllTranscriptionsV1TranscriptionsTableGetCall
-      getAllTranscriptionsV1TranscriptionsTableGetCall =
-      GetAllTranscriptionsV1TranscriptionsTableGetCall();
-  static GettranscriptionsbyidCall gettranscriptionsbyidCall =
-      GettranscriptionsbyidCall();
+  static UploadMediaCall uploadMediaCall = UploadMediaCall();
+  static TableTranscriprionsCall tableTranscriprionsCall =
+      TableTranscriprionsCall();
+  static GetTranscriptionByIdCall getTranscriptionByIdCall =
+      GetTranscriptionByIdCall();
   static GetTranscriptionsByTitleV1TranscriptionsTitleTitleGetCall
       getTranscriptionsByTitleV1TranscriptionsTitleTitleGetCall =
       GetTranscriptionsByTitleV1TranscriptionsTitleTitleGetCall();
-  static RatingTranscriptionV1TranscriptionsRatingPostCall
-      ratingTranscriptionV1TranscriptionsRatingPostCall =
-      RatingTranscriptionV1TranscriptionsRatingPostCall();
+  static RatingCall ratingCall = RatingCall();
   static GetTranscriptionsChatV1TranscriptionsIdChatGetCall
       getTranscriptionsChatV1TranscriptionsIdChatGetCall =
       GetTranscriptionsChatV1TranscriptionsIdChatGetCall();
-  static SearchV1SearchGetCall searchV1SearchGetCall = SearchV1SearchGetCall();
-  static SearchByKeywordV1SearchKeywordGetCall
-      searchByKeywordV1SearchKeywordGetCall =
-      SearchByKeywordV1SearchKeywordGetCall();
+  static SearchCall searchCall = SearchCall();
+  static SearchByKeywordsCall searchByKeywordsCall = SearchByKeywordsCall();
   static GetChatV1ChatGetCall getChatV1ChatGetCall = GetChatV1ChatGetCall();
   static GetChatV1ChatIdGetCall getChatV1ChatIdGetCall =
       GetChatV1ChatIdGetCall();
@@ -360,18 +349,18 @@ class DeactivateUserCall {
   }
 }
 
-class GetTranscriptionStatusV1TranscriptionStatusGetCall {
+class GetTranscriptionsStatusCall {
   Future<ApiCallResponse> call({
     int? page,
     int? size,
-    String? xApiKey = '',
+    String? token = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'get_transcription_status_v1_transcription_status_get',
+      callName: 'Get Transcriptions Status',
       apiUrl: '${TranscriptionAPIGroup.baseUrl}/v1/transcription/status',
       callType: ApiCallType.GET,
       headers: {
-        'x-api-key': '$xApiKey',
+        'Authorization': 'Bearer $token',
       },
       params: {
         'page': page,
@@ -379,16 +368,16 @@ class GetTranscriptionStatusV1TranscriptionStatusGetCall {
       },
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
       alwaysAllowBody: false,
     );
   }
 }
 
-class CreateTranscriptionStatusV1TranscriptionStatusPostCall {
+class CreateTranscriptionStatusCall {
   Future<ApiCallResponse> call({
-    String? xApiKey = '',
+    String? token = '',
   }) async {
     const ffApiRequestBody = '''
 {
@@ -400,11 +389,11 @@ class CreateTranscriptionStatusV1TranscriptionStatusPostCall {
   "media_thumbnail_path": ""
 }''';
     return ApiManager.instance.makeApiCall(
-      callName: 'create_transcription_status_v1_transcription_status_post',
+      callName: 'Create Transcription Status',
       apiUrl: '${TranscriptionAPIGroup.baseUrl}/v1/transcription/status',
       callType: ApiCallType.POST,
       headers: {
-        'x-api-key': '$xApiKey',
+        'Authorization': 'Bearer $token',
       },
       params: {},
       body: ffApiRequestBody,
@@ -418,41 +407,39 @@ class CreateTranscriptionStatusV1TranscriptionStatusPostCall {
   }
 }
 
-class GetTranscriptionStatusTodayV1TranscriptionStatusTodayGetCall {
+class GetTranscriptionsTodayCall {
   Future<ApiCallResponse> call({
-    String? xApiKey = '',
+    String? token = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName:
-          'get_transcription_status_today_v1_transcription_status_today_get',
+      callName: 'Get transcriptions Today',
       apiUrl: '${TranscriptionAPIGroup.baseUrl}/v1/transcription/status/today',
       callType: ApiCallType.GET,
       headers: {
-        'x-api-key': '$xApiKey',
+        'Authorization': 'Bearer $token',
       },
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
       alwaysAllowBody: false,
     );
   }
 }
 
-class GetTranscriptionStatusByUserIdV1TranscriptionStatusTodayIdGetCall {
+class GetTransriptionsByUserIdCall {
   Future<ApiCallResponse> call({
     int? id,
-    String? xApiKey = '',
+    String? token = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName:
-          'get_transcription_status_by_user_id_v1_transcription_status_today__id__get',
+      callName: 'Get transriptions by user id',
       apiUrl:
           '${TranscriptionAPIGroup.baseUrl}/v1/transcription/status/today/$id',
       callType: ApiCallType.GET,
       headers: {
-        'x-api-key': '$xApiKey',
+        'Authorization': 'Bearer $token',
       },
       params: {},
       returnBody: true,
@@ -554,7 +541,6 @@ class GetAllTranscriptionsCall {
       params: {
         'page': page,
         'size': size,
-        'token': token,
       },
       returnBody: true,
       encodeBodyUtf8: false,
@@ -695,17 +681,15 @@ class GetAllTranscriptionsCall {
       ));
 }
 
-class UploadMediaTranscriptionV1TranscriptionsPostCall {
+class UploadMediaCall {
   Future<ApiCallResponse> call({
     String? xApiKey = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'upload_media_transcription_v1_transcriptions_post',
+      callName: 'Upload Media',
       apiUrl: '${TranscriptionAPIGroup.baseUrl}/v1/transcriptions',
       callType: ApiCallType.POST,
-      headers: {
-        'x-api-key': '$xApiKey',
-      },
+      headers: {},
       params: {},
       bodyType: BodyType.MULTIPART,
       returnBody: true,
@@ -717,34 +701,143 @@ class UploadMediaTranscriptionV1TranscriptionsPostCall {
   }
 }
 
-class GetAllTranscriptionsV1TranscriptionsTableGetCall {
+class TableTranscriprionsCall {
   Future<ApiCallResponse> call({
-    String? xApiKey = '',
+    String? token = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'get_all_transcriptions_v1_transcriptions_table_get',
+      callName: 'Table Transcriprions',
       apiUrl: '${TranscriptionAPIGroup.baseUrl}/v1/transcriptions/table',
       callType: ApiCallType.GET,
       headers: {
-        'x-api-key': '$xApiKey',
+        'Authorization': 'Bearer $token',
       },
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
       alwaysAllowBody: false,
     );
   }
+
+  List<String>? title(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].title''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? createdAt(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].created_at''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<int>? trannscriptionid(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].transcription_id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<int>? userid(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].user_id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? usename(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].user_name''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<double>? duration(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].duration''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<double>(x))
+          .withoutNulls
+          .toList();
+  List<String>? updatedat(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].updated_at''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? transcriptiondocpath(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].transcription_doc_path''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? mediathumbnailpath(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].media_thumbnail_path''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? status(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].status''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<int>? rating(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].rating''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? keywords(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].keywords''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
 }
 
-class GettranscriptionsbyidCall {
+class GetTranscriptionByIdCall {
   Future<ApiCallResponse> call({
     int? id,
     String? token = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'gettranscriptionsbyid',
+      callName: 'Get Transcription by id',
       apiUrl: '${TranscriptionAPIGroup.baseUrl}/v1/transcriptions/$id',
       callType: ApiCallType.GET,
       headers: {
@@ -753,7 +846,7 @@ class GettranscriptionsbyidCall {
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
       alwaysAllowBody: false,
     );
@@ -925,21 +1018,23 @@ class GetTranscriptionsByTitleV1TranscriptionsTitleTitleGetCall {
   }
 }
 
-class RatingTranscriptionV1TranscriptionsRatingPostCall {
+class RatingCall {
   Future<ApiCallResponse> call({
-    String? xApiKey = '',
+    String? token = '',
+    int? id,
+    int? rating,
   }) async {
-    const ffApiRequestBody = '''
+    final ffApiRequestBody = '''
 {
-  "id": 0,
-  "rating": 0
+  "id": $id,
+  "rating": $rating
 }''';
     return ApiManager.instance.makeApiCall(
-      callName: 'rating_transcription_v1_transcriptions_rating_post',
+      callName: 'Rating',
       apiUrl: '${TranscriptionAPIGroup.baseUrl}/v1/transcriptions/rating',
       callType: ApiCallType.POST,
       headers: {
-        'x-api-key': '$xApiKey',
+        'Authorization': 'Bearer $token',
       },
       params: {},
       body: ffApiRequestBody,
@@ -975,52 +1070,244 @@ class GetTranscriptionsChatV1TranscriptionsIdChatGetCall {
   }
 }
 
-class SearchV1SearchGetCall {
+class SearchCall {
   Future<ApiCallResponse> call({
     String? q = '',
-    String? xApiKey = '',
+    String? token = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'search_v1_search_get',
+      callName: 'Search',
       apiUrl: '${TranscriptionAPIGroup.baseUrl}/v1/search',
       callType: ApiCallType.GET,
       headers: {
-        'x-api-key': '$xApiKey',
+        'Authorization': 'Bearer $token',
       },
       params: {
         'q': q,
       },
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
       alwaysAllowBody: false,
     );
   }
+
+  List? results(dynamic response) => getJsonField(
+        response,
+        r'''$.results''',
+        true,
+      ) as List?;
+  List<int>? id(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? title(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].title''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? status(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].status''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? keywords(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].keywords''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<double>? duration(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].duration''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<double>(x))
+          .withoutNulls
+          .toList();
+  List<String>? mediafilepath(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].media_file_path''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? createdat(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].created_at''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? updatedat(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].updated_at''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? transcriptiondocpath(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].transcription_doc_path''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? mediathumbnailpath(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].media_thumbnail_path''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
 }
 
-class SearchByKeywordV1SearchKeywordGetCall {
+class SearchByKeywordsCall {
   Future<ApiCallResponse> call({
     String? q = '',
-    String? xApiKey = '',
+    String? token = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'search_by_keyword_v1_search_keyword_get',
+      callName: 'Search By Keywords',
       apiUrl: '${TranscriptionAPIGroup.baseUrl}/v1/search/keyword',
       callType: ApiCallType.GET,
       headers: {
-        'x-api-key': '$xApiKey',
+        'Authorization': 'Bearer $token',
       },
       params: {
         'q': q,
       },
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
       alwaysAllowBody: false,
     );
   }
+
+  List? resultsKeywords(dynamic response) => getJsonField(
+        response,
+        r'''$.results''',
+        true,
+      ) as List?;
+  List<int>? id(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? title(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].title''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? status(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].status''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? keywords(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].keywords''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<double>? duration(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].duration''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<double>(x))
+          .withoutNulls
+          .toList();
+  List<String>? mediafilepath(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].media_file_path''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? createdat(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].created_at''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? updatedat(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].updated_at''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? docpath(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].transcription_doc_path''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? thumbnail(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].media_thumbnail_path''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
 }
 
 class GetChatV1ChatGetCall {

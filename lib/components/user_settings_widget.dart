@@ -1,10 +1,10 @@
+import '/auth/custom_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:provider/provider.dart';
 import 'user_settings_model.dart';
 export 'user_settings_model.dart';
 
@@ -70,8 +70,6 @@ class _UserSettingsWidgetState extends State<UserSettingsWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 32.0),
       child: Container(
@@ -257,14 +255,14 @@ class _UserSettingsWidgetState extends State<UserSettingsWidget>
                                               FFAppState().logout = true;
                                             });
                                             Navigator.pop(context);
-                                            if (widget.navigate == 'users') {
-                                              context.pushNamed('users');
-                                            } else if (widget.navigate ==
-                                                'dashboard') {
-                                              context.pushNamed('dashboard');
-                                            } else {
-                                              return;
-                                            }
+                                            GoRouter.of(context)
+                                                .prepareAuthEvent();
+                                            await authManager.signOut();
+                                            GoRouter.of(context)
+                                                .clearRedirectLocation();
+
+                                            context.pushNamedAuth(
+                                                'auth-login', context.mounted);
                                           },
                                           child: Icon(
                                             Icons.exit_to_app,
@@ -451,79 +449,102 @@ class _UserSettingsWidgetState extends State<UserSettingsWidget>
                   ),
                 ),
               ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
-                    child: FlutterFlowIconButton(
-                      borderColor: FlutterFlowTheme.of(context).primary,
-                      borderRadius: 8.0,
-                      borderWidth: 1.0,
-                      buttonSize: 40.0,
-                      fillColor: FlutterFlowTheme.of(context).primary,
-                      icon: const Icon(
-                        Icons.edit_outlined,
-                        color: Colors.white,
-                        size: 20.0,
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                      child: FlutterFlowIconButton(
+                        borderColor: FlutterFlowTheme.of(context).primary,
+                        borderRadius: 8.0,
+                        borderWidth: 1.0,
+                        buttonSize: 40.0,
+                        fillColor: FlutterFlowTheme.of(context).error,
+                        icon: const Icon(
+                          Icons.logout_sharp,
+                          color: Colors.white,
+                          size: 20.0,
+                        ),
+                        onPressed: () async {
+                          _model.updatePage(() {
+                            FFAppState().logout = true;
+                          });
+                          Navigator.pop(context);
+                          GoRouter.of(context).prepareAuthEvent();
+                          await authManager.signOut();
+                          GoRouter.of(context).clearRedirectLocation();
+
+                          context.pushNamedAuth('auth-login', context.mounted);
+                        },
                       ),
-                      onPressed: () {
-                        print('IconButton pressed ...');
-                      },
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
-                    child: FlutterFlowIconButton(
-                      borderColor: FlutterFlowTheme.of(context).alternate,
-                      borderRadius: 8.0,
-                      borderWidth: 2.0,
-                      buttonSize: 40.0,
-                      icon: Icon(
-                        Icons.chat_bubble_outline,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 20.0,
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                      child: FlutterFlowIconButton(
+                        borderColor: FlutterFlowTheme.of(context).alternate,
+                        borderRadius: 8.0,
+                        borderWidth: 2.0,
+                        buttonSize: 40.0,
+                        icon: Icon(
+                          Icons.groups_2,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          size: 20.0,
+                        ),
+                        onPressed: () async {
+                          context.pushNamed('users');
+
+                          setState(() {
+                            FFAppState().logout = false;
+                          });
+                        },
                       ),
-                      onPressed: () {
-                        print('IconButton pressed ...');
-                      },
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
-                    child: FlutterFlowIconButton(
-                      borderColor: FlutterFlowTheme.of(context).alternate,
-                      borderRadius: 8.0,
-                      borderWidth: 2.0,
-                      buttonSize: 40.0,
-                      icon: Icon(
-                        Icons.group_outlined,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 20.0,
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                      child: FlutterFlowIconButton(
+                        borderColor: FlutterFlowTheme.of(context).alternate,
+                        borderRadius: 8.0,
+                        borderWidth: 2.0,
+                        buttonSize: 40.0,
+                        icon: Icon(
+                          Icons.home,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          size: 20.0,
+                        ),
+                        onPressed: () async {
+                          context.pushNamed('dashboard');
+
+                          setState(() {
+                            FFAppState().logout = false;
+                          });
+                        },
                       ),
-                      onPressed: () {
-                        print('IconButton pressed ...');
-                      },
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
-                    child: FlutterFlowIconButton(
-                      borderColor: FlutterFlowTheme.of(context).alternate,
-                      borderRadius: 8.0,
-                      borderWidth: 2.0,
-                      buttonSize: 40.0,
-                      icon: Icon(
-                        Icons.videocam_outlined,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 20.0,
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                      child: FlutterFlowIconButton(
+                        borderColor: FlutterFlowTheme.of(context).alternate,
+                        borderRadius: 8.0,
+                        borderWidth: 2.0,
+                        buttonSize: 40.0,
+                        icon: Icon(
+                          Icons.videocam_outlined,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          size: 20.0,
+                        ),
+                        onPressed: () {
+                          print('IconButton pressed ...');
+                        },
                       ),
-                      onPressed: () {
-                        print('IconButton pressed ...');
-                      },
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

@@ -351,7 +351,6 @@ class _AuthLoginWidgetState extends State<AuthLoginWidget>
                                             0.0, 0.0, 0.0, 16.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            Function() navigate = () {};
                                             if (_model.formKey.currentState ==
                                                     null ||
                                                 !_model.formKey.currentState!
@@ -409,13 +408,12 @@ class _AuthLoginWidgetState extends State<AuthLoginWidget>
                                                       ''),
                                                 )!)),
                                               );
-                                              navigate = () =>
-                                                  context.goNamedAuth(
-                                                      'dashboard',
-                                                      context.mounted);
                                               setState(() {
                                                 FFAppState().logout = false;
                                               });
+
+                                              context.pushNamedAuth(
+                                                  'dashboard', context.mounted);
                                             } else {
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(
@@ -440,8 +438,6 @@ class _AuthLoginWidgetState extends State<AuthLoginWidget>
                                                 ),
                                               );
                                             }
-
-                                            navigate();
 
                                             setState(() {});
                                           },
@@ -485,9 +481,8 @@ class _AuthLoginWidgetState extends State<AuthLoginWidget>
                                         padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 12.0, 0.0, 2.0),
                                         child: RichText(
-                                          textScaleFactor:
-                                              MediaQuery.of(context)
-                                                  .textScaleFactor,
+                                          textScaler:
+                                              MediaQuery.of(context).textScaler,
                                           text: TextSpan(
                                             children: [
                                               TextSpan(
@@ -537,9 +532,8 @@ class _AuthLoginWidgetState extends State<AuthLoginWidget>
                                         padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 12.0),
                                         child: RichText(
-                                          textScaleFactor:
-                                              MediaQuery.of(context)
-                                                  .textScaleFactor,
+                                          textScaler:
+                                              MediaQuery.of(context).textScaler,
                                           text: TextSpan(
                                             children: [
                                               TextSpan(

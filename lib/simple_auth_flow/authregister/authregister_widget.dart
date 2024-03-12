@@ -492,7 +492,7 @@ class _AuthregisterWidgetState extends State<AuthregisterWidget> {
                                                                         .sizeOf(
                                                                             context)
                                                                     .height *
-                                                                0.25,
+                                                                0.2,
                                                             width: MediaQuery
                                                                         .sizeOf(
                                                                             context)
@@ -609,9 +609,8 @@ class _AuthregisterWidgetState extends State<AuthregisterWidget> {
                                               context.pushNamed('auth-login');
                                             },
                                             child: RichText(
-                                              textScaleFactor:
-                                                  MediaQuery.of(context)
-                                                      .textScaleFactor,
+                                              textScaler: MediaQuery.of(context)
+                                                  .textScaler,
                                               text: TextSpan(
                                                 children: [
                                                   TextSpan(

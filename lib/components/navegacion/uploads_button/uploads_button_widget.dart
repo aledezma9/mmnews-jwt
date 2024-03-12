@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'uploads_button_model.dart';
@@ -52,46 +53,81 @@ class _UploadsButtonWidgetState extends State<UploadsButtonWidget> {
           children: [
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
-              child: Container(
-                width: FFAppState().menus ? 49.0 : 200.0,
-                height: 40.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).warning,
-                  borderRadius: BorderRadius.circular(6.0),
-                  shape: BoxShape.rectangle,
-                  border: Border.all(
-                    width: 1.0,
+              child: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  final selectedFiles = await selectFiles(
+                    multiFile: false,
+                  );
+                  if (selectedFiles != null) {
+                    setState(() => _model.isDataUploading = true);
+                    var selectedUploadedFiles = <FFUploadedFile>[];
+
+                    try {
+                      selectedUploadedFiles = selectedFiles
+                          .map((m) => FFUploadedFile(
+                                name: m.storagePath.split('/').last,
+                                bytes: m.bytes,
+                              ))
+                          .toList();
+                    } finally {
+                      _model.isDataUploading = false;
+                    }
+                    if (selectedUploadedFiles.length == selectedFiles.length) {
+                      setState(() {
+                        _model.uploadedLocalFile = selectedUploadedFiles.first;
+                      });
+                    } else {
+                      setState(() {});
+                      return;
+                    }
+                  }
+                },
+                child: Container(
+                  width: FFAppState().menus ? 49.0 : 200.0,
+                  height: 45.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).warning,
+                    borderRadius: BorderRadius.circular(6.0),
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      width: 1.0,
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Icon(
-                        Icons.cloud_upload,
-                        color: FlutterFlowTheme.of(context).background,
-                        size: 20.0,
-                      ),
-                      if (!FFAppState().menus)
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              12.0, 0.0, 0.0, 0.0),
-                          child: Text(
-                            FFLocalizations.of(context).getText(
-                              'ek5uilky' /* Subir */,
-                            ),
-                            style: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  color:
-                                      FlutterFlowTheme.of(context).background,
-                                  fontSize: 12.0,
-                                ),
-                          ),
+                  child: Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Icon(
+                          Icons.cloud_upload,
+                          color: FlutterFlowTheme.of(context).background,
+                          size: 20.0,
                         ),
-                    ],
+                        if (!FFAppState().menus)
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                12.0, 0.0, 0.0, 0.0),
+                            child: Text(
+                              FFLocalizations.of(context).getText(
+                                'ek5uilky' /* Subir */,
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Readex Pro',
+                                    color:
+                                        FlutterFlowTheme.of(context).background,
+                                    fontSize: 12.0,
+                                  ),
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
               ),
